@@ -1,7 +1,7 @@
 import HeroUI from "../../components/Hero/HeroUI"
 import ModuleUI from "../../components/Module/ModuleUI"
 import ModuleListUI from "../../components/ModuleList/ModuleListUI"
-import { FluidContainerStyle } from "../../components/public/style.css"
+import { FluidContainerStyle } from "../../public/style.css"
 import SiteHeaderUI, { SiteMainNavigatorUI } from "./SiteHeaderUI"
 import { HomeStyle, SiteMainHeaderStyle} from "./styles.css"
 

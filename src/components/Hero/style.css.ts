@@ -1,7 +1,7 @@
 import { style,styleVariants } from "@vanilla-extract/css";
 import {calc} from '@vanilla-extract/css-utils';
-import { BottomLineSmall, FluidContainerStyle } from "../public/style.css";
-import { BottomLine } from "../public/style.css";
+import { BackgroudWS, BottomLineSmall, FluidContainerStyle } from "../../public/style.css";
+import { BottomLine } from "../../public/style.css";
 
 export const HeroContainer = style({
     position: 'relative',
@@ -67,6 +67,7 @@ export const HeroContentBg = style({
 
 export const HeroModuleContainer = style([
     BottomLine,
+    BackgroudWS,
     {
         display: 'flex',
     }

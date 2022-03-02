@@ -4,7 +4,6 @@ export const FluidContainerStyle = style({
     maxWidth:'1280px',
     padding: '2rem 4rem',
     margin: 'auto',
-    background: '#fff',
 })
 
 export const BottomLine = style({
@@ -50,4 +49,12 @@ export const JumpLink = style({
 
 export const LineLeftSmall = style({
     marginLeft:'.5rem',
+})
+
+export const ContentS = style({
+    maxWidth:'97rem',
+})
+
+export const BackgroudWS = style({
+    background: '#fff'
 })

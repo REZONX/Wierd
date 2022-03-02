@@ -2,7 +2,9 @@ import {FC, Fragment, useContext} from 'react';
 import './App.css';
 import SiteHeader from './pages/Home/SiteHeader';
 import { HomeUI } from './pages/Home/HomeUI';
-
+import { Route,Routes } from 'react-router';
+import CinemaUI from './pages/Cinema/CinemaUI';
+import ListsUI from './pages/Lists/ListsUI';
 
 
 const App:FC = () => {
@@ -31,7 +33,11 @@ const App:FC = () => {
           }
         ]}
       />
-      <HomeUI/>
+      <Routes>
+        <Route element={<HomeUI/>} path={'/'}/>
+        <Route element = {<CinemaUI/>} path = {'/cinema'}/>
+        <Route element = {<ListsUI/>} path = {'/lists'}/>
+      </Routes>
     </div>
   )
 }

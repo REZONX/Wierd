@@ -1,8 +1,13 @@
 import { style } from "@vanilla-extract/css";
-import { BottomLineSmall, FluidContainerStyle, MovieDesc, MovieName } from "../public/style.css";
+import { BackgroudWS, BottomLineSmall, FluidContainerStyle, MovieDesc, MovieName } from "../../public/style.css";
 import { vars } from "../../vars.css";
 
 //Modules
+export const ModuleListContainerS = style([
+    FluidContainerStyle,
+    BackgroudWS,
+])
+
 export const ModuleListName = style({
     fontSize:'4rem',
     fontWeight:'800',

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import {LineLeftSmall } from "../public/style.css"
+import {LineLeftSmall } from "../../public/style.css"
 import { Image, ImageContainer, ImageCover, ImageCoverContent, ImageLink, ModuleLi, ModuleLink, ModuleMovieName, ModuleStyle, ModuleSvg, MovieInformContainer, Score, ScoreSvg } from "./module.css"
 
 export type ModuleType = 'oneThird' | 'oneFourth' | 'oneTwo'

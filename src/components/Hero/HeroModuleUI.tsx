@@ -1,4 +1,4 @@
-import { FluidContainerStyle } from "../public/style.css"
+import { FluidContainerStyle } from "../../public/style.css"
 import { HeroModuleContainer, HeroModuleDetail, HeroModuleImage, HeroModuleImageContainer, HeroModuleMovieName, HeroModuleMovieDiscription, PlayContainer, PlaySvg, PlayText } from "./style.css"
 
 export interface HeroModuleProps {

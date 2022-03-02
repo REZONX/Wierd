@@ -10,9 +10,12 @@ export const SiteMainHeaderStyle  = styleVariants({
         top:'0',
         width: '100%',
         background:'#1a1a1a',
-        transition: 'top .5s ease',
         zIndex:'50'
     },
+})
+
+export const SiteMainHeaderSmoothS = style({
+    transition: 'top .5s ease',
 })
 
 

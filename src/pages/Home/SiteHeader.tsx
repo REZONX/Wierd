@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import classnames from 'classnames'
 import SiteHeaderUI,{SiteHeaderUIProps} from "./SiteHeaderUI"
-import { debounce } from '../../utils'
+import { debounce, useIsPathnameMatch } from '../../utils'
 import {
     SiteMainHeaderHidden,
+    SiteMainHeaderSmoothS,
     SiteMainHeaderStyle
 } from './styles.css'
 import { useScroll,Action } from '../../utils/useScroll'
+import { useLocation } from 'react-router'
 
 export interface SiteHeaderProps extends SiteHeaderUIProps {}
 
@@ -15,18 +17,29 @@ export enum ScrollEvent {
     above = 'ABOVE',
 }
 
+const parsePathname = (pathname:string) => {
+    let pathnameArr = pathname.split('/')
+    return pathnameArr[pathnameArr.length - 1]
+}
+
+const useIsPathnameMatchHome = () => {
+    return useIsPathnameMatch('/')
+}
+
 const SiteHeader = (props:SiteHeaderProps) => {
 
+    let isPathnameMatchHome = useIsPathnameMatchHome()
     const [isHidden,subscribe] = useScroll(true,reducer)
-    
     subscribe(createEvent)
 
-    let classNames = classnames(SiteMainHeaderStyle[props.navStyle ?? 'large'],{
-        [`${SiteMainHeaderHidden}`]:isHidden
+    let SiteHeaderUIS = classnames(SiteMainHeaderStyle[props.navStyle ?? 'large'],{
+        [`${SiteMainHeaderHidden}`]: isPathnameMatchHome && isHidden,
+        [`${SiteMainHeaderSmoothS}`] : isPathnameMatchHome
     })
+
     return (
         <SiteHeaderUI
-            className = {classNames}
+            className = {SiteHeaderUIS}
             {...props}
         />
     )

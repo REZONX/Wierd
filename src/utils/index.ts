@@ -1,4 +1,4 @@
-import { number } from "fp-ts"
+import { useLocation } from "react-router"
 
 export const useThrottle = (time:number,callback:Function) => {
     let timeout:NodeJS.Timeout | undefined = undefined
@@ -28,3 +28,8 @@ export const debounce = (callback:Function,time:number) => {
 //         timeout = window.setTimeout(()=>fn(), wait);
 //     }
 // }
+
+export const useIsPathnameMatch = (pathname:string) => {
+    let location = useLocation()
+    return location.pathname === pathname
+}

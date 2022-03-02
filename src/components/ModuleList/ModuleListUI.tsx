@@ -1,12 +1,12 @@
 import ModuleUI from "../Module/ModuleUI"
-import { FluidContainerStyle } from "../public/style.css"
-import { ModuleListContainer, ModuleListName, ModuleListNameDesc, ModulesContainer, SideContainer, SideContent } from "./style.css"
+import { FluidContainerStyle } from "../../public/style.css"
+import { ModuleListContainer, ModuleListContainerS, ModuleListName, ModuleListNameDesc, ModulesContainer, SideContainer, SideContent } from "./style.css"
 import SideSliderUI from "./SideSliderUI"
 
 const ModuleList = () => {
     return (
         <div
-            className={FluidContainerStyle}
+            className={ModuleListContainerS}
         >
             <h1
                 className={ModuleListName}

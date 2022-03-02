@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { JumpLink, MovieDesc, MovieName } from "../public/style.css"
+import { JumpLink, MovieDesc, MovieName } from "../../public/style.css"
 import { SideContainer, SideContent, SideDetailContainer, SideHeader, SideListContainer, SideModuleNum, SideModuleStyle, SideMovieDesc, SideMovieName } from "./style.css"
 
 export interface SideSliderUIProps<T = any> {
