@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom"
 import SiteHeaderUI from "../Home/SiteHeaderUI"
-import { ListContentS, ListHeaderS, ListNameS, ListsUIContainerS, ListsUIContentContainerS } from "./style.css"
+import ListsModuleUI from "./ListsModuleUI"
+import { ListContentS, ListHeaderS, ListNameS, ListsUIContainerS, ListsUIContentContainerS, ListsUIHeaderContainerS, ListsUIHeaderContentS, ListsUIHeaderS, ListsUIHeaderTitleContainerS } from "./style.css"
 
 export interface ListsUIProps {
     listName?:string
@@ -13,6 +15,43 @@ const ListsUI = (props:ListsUIProps) => {
         <div
         className={ListsUIContainerS}
         >
+                <header
+                    className={ListsUIHeaderContainerS}
+                >
+                    <div
+                        className={ListsUIHeaderContentS}
+                    >
+                        <div
+                            className={ListsUIHeaderTitleContainerS}
+                        >
+                            <h1
+                                className={ListsUIHeaderS}
+                            >
+                                Lists
+                            </h1>
+                        </div>
+                        <div
+                            className={"nav-container"}
+                        >
+                            <ul>
+                                <li>
+                                    <Link
+                                        to={'the-hot-10'}
+                                    >
+                                        The Hot 10
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to={'the-rate-high'}
+                                    >
+                                        the rate high
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </header>
             <div
                 className={ListsUIContentContainerS}
             >
@@ -30,6 +69,7 @@ const ListsUI = (props:ListsUIProps) => {
                             }
                         </span>
                     </header>
+                    <ListsModuleUI/>
                 </div>
             </div>
         </div>

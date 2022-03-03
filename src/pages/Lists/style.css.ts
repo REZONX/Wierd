@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
-import { ContentS, FluidContainerStyle } from "../../public/style.css";
+import { ContentS, FluidContainerStyle, ImageS } from "../../public/style.css";
 
 export const ListsUIContainerS = style({
     padding: '76px 4rem'
@@ -39,6 +39,7 @@ export const ListHeaderS = style([
         }
     }
 ])
+
 export const ListNameS = style([
     {
         fontSize:'4rem',
@@ -49,5 +50,85 @@ export const ListNameS = style([
         background: '#fff',
         position: 'relative',
         padding: '0 4rem',
+    }
+])
+
+export const ListsUIHeaderContainerS = style([
+    FluidContainerStyle,
+    {
+        justifyContent:'center',
+        alignItems:'center',
+        display: 'flex',
+    }
+])
+
+export const ListsUIHeaderS = style({
+    fontSize:'6rem',
+    fontWeight:'900',
+    textTransform:'uppercase',
+})
+
+export const ListsUIHeaderContentS = style([
+    ContentS,
+    {
+        width: '100%',
+    }
+])
+
+export const ListsUIHeaderTitleContainerS = style([
+    {
+        width: '100%',
+        textAlign:'center',
+        position: 'relative',
+        '::after':{
+            content:'',
+            position: 'absolute',
+            width: '100%',
+            height: '1rem',
+            background: "black",
+            left: '50%',
+            transform: 'translateX(-50%)'
+        }
+    }
+])
+
+
+
+//Module
+export const ListsModuleUIContainerS = style([
+    {
+        width: '100%',
+        display: 'flex',
+        justifyContent:'center',
+    }
+])
+
+export const ListsModuleUINumS = style({
+    display: 'flex',
+    justifyContent:'center',
+    alignItems:'center',
+    width: '5rem',
+    height: '5rem',
+    background: '#eee',
+    fontSize:'3rem',
+    fontWeight:'600',
+})
+
+export const ListsModuleUIImageContainerS = style({
+    display: 'flex',
+    flex: '5',
+})
+
+export const ListsModuleUIImageS = style([
+    ImageS,
+    {
+        width: '100%',
+    }
+])
+
+export const ListsModuleUIDescContainerS = style([
+    {
+        flex:'5',
+        background: '#eee',
     }
 ])

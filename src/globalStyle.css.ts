@@ -17,6 +17,7 @@ globalStyle('*',{
 
 globalStyle('ul',{
     textDecoration:'none',
+    listStyle:'none',
 })
 
 globalStyle('a',{

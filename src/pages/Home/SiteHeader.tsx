@@ -46,7 +46,7 @@ const SiteHeader = (props:SiteHeaderProps) => {
 }
 
 const createEvent = () => {
-    switch(document.documentElement.scrollTop > 200){
+    switch(document.documentElement.scrollTop > 560){
         case true:
             return ScrollEvent.above
         case false:

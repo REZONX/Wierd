@@ -58,3 +58,7 @@ export const ContentS = style({
 export const BackgroudWS = style({
     background: '#fff'
 })
+
+export const ImageS = style({
+    objectFit:'cover',
+})
