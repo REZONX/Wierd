@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
-import { ContentS, FluidContainerStyle, ImageS } from "../../public/style.css";
+import { ContentS, FluidContainerStyle, ImageS, PaddingLeftAndRight, PaddingTopAndBottom } from "../../public/style.css";
 
 export const ListsUIContainerS = style({
     padding: '76px 4rem'
@@ -96,10 +96,12 @@ export const ListsUIHeaderTitleContainerS = style([
 
 //Module
 export const ListsModuleUIContainerS = style([
+    PaddingTopAndBottom,
     {
         width: '100%',
         display: 'flex',
-        justifyContent:'center',
+        // justifyContent:'center',
+        alignItems:'center',
     }
 ])
 
@@ -114,10 +116,13 @@ export const ListsModuleUINumS = style({
     fontWeight:'600',
 })
 
-export const ListsModuleUIImageContainerS = style({
-    display: 'flex',
-    flex: '5',
-})
+export const ListsModuleUIImageContainerS = style([
+    PaddingLeftAndRight,
+    {
+        display: 'flex',
+        flex: '2',
+    }
+])
 
 export const ListsModuleUIImageS = style([
     ImageS,
@@ -127,8 +132,41 @@ export const ListsModuleUIImageS = style([
 ])
 
 export const ListsModuleUIDescContainerS = style([
+    PaddingLeftAndRight,
     {
-        flex:'5',
-        background: '#eee',
+        flex:'8',
+        display: 'flex',
+        alignSelf:'stretch',
+        
     }
 ])
+
+export const ListsModuleUIDescContentUnderLineS = style({
+    width: '100%',
+    display: 'flex',
+    alignItems:'center',
+    borderBottom:'solid 1px #eee',
+})
+
+export const ListsModuleUIDescInfoContainerS = style({
+    display: 'flex',
+    flexDirection:'column',
+    flex:'1',
+    alignSelf:'stretch',
+    justifyContent:'center',
+})
+
+export const ListsModuleUIScoreContainerS = style({
+    color:'#f5c518',
+    fontStyle:'italic',
+})
+
+export const ListsModuleUIScoreLargeS = style({
+    fontSize:'7rem',
+    fontWeight:'600',
+})
+
+export const ListsModuleUIScoreSmalleS = style({
+    fontSize:'3rem',
+    fontWeight:'500',
+})

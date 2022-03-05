@@ -62,3 +62,50 @@ export const BackgroudWS = style({
 export const ImageS = style({
     objectFit:'cover',
 })
+
+export const MarginLeftAndRight = style({
+    margin: '0 2rem'
+})
+
+export const PaddingLeftAndRight = style({
+    padding: '0 2rem'
+})
+
+export const ImageLinkBaseS = style({
+    display: 'flex',
+})
+
+export const PaddingTopAndBottom = style({
+    padding: '2rem 0',
+})
+
+export const MarginTopAndBottom = style({
+    margin: '1rem 0',
+})
+
+export const MovieNameBaseS = style({
+    fontSize:'3rem',
+    fontWeight:'800',
+    textTransform:'capitalize',
+})
+
+export const MainActorUlS = style({
+    display: 'inline-block',
+})
+
+export const MainActorLiS = style({
+    fontSize:'.6rem',
+    fontWeight:'1000',
+    letterSpacing:'2px',
+})
+
+export const MainActorNameLiS = style([
+    MainActorLiS,
+    {
+        display: 'inline-block',
+        '::after':{
+            content: '/',
+            color:'#ff3530',
+        }
+    }
+])
