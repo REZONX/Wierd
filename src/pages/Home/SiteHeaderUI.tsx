@@ -1,10 +1,13 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, NavLink} from 'react-router-dom'
+import AvatarDropDown from '../../components/AvatarDropdown'
 import {
     SiteMainHeaderStyle,
     SiteMainNavUlStyle,
     SiteMainNavLiStyle,
-    SiteMainNavLinkStyle
+    SiteMainNavLinkStyle,
+    ActiveS,
+    siteNav
 } from './styles.css'
 
 export interface NavRouteInfo {
@@ -23,11 +26,12 @@ const SiteHeaderUI = (props:SiteHeaderUIProps) => {
             className={props.className}
         >
             <nav
-                className="site-nav"
+                className={siteNav}
             >
                 <SiteMainNavigatorUI
                     {...props}
                 />
+                <AvatarDropDown/>
             </nav>
         </header>
     )
@@ -50,12 +54,14 @@ export const SiteMainNavigatorUI = (props:SiteMainNavigatorProps) => {
                             className={SiteMainNavLiStyle[props.navStyle ?? 'large']}
                             key={path}
                         >
-                            <Link
-                                className={SiteMainNavLinkStyle[props.navStyle ?? 'large']}
+                            <NavLink
+                                className={
+                                    ({isActive}) => isActive ? ActiveS :  SiteMainNavLinkStyle[props.navStyle ?? 'large']
+                                }
                                 to={path}
                             >
                                 {content}
-                            </Link>
+                            </NavLink>
                         </li>
                     )
                 })

@@ -109,3 +109,34 @@ export const MainActorNameLiS = style([
         }
     }
 ])
+
+export const InlineS = style({
+    display: 'inline-block'
+})
+
+export const center = style({
+    left:"50%",
+    top: "50%",
+    transform: "translateX(-50%) translateY(-50%)"
+})
+
+export const hcenter  = style({
+    left: "50%",
+    transform: "translateX(-50%)",
+})
+
+export const mb = style({
+    marginBottom:".5rem"
+})
+
+export const bmb = style({
+    marginBottom:"10rem"
+})
+
+export const pages = style([
+    {
+        paddingTop:'7rem',
+        background:"#fff",
+    },
+    FluidContainerStyle
+])

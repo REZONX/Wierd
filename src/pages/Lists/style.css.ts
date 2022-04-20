@@ -170,3 +170,12 @@ export const ListsModuleUIScoreSmalleS = style({
     fontSize:'3rem',
     fontWeight:'500',
 })
+
+export const nav = style([
+    {
+        display: "flex",
+        justifyContent:"center",
+        alignItems:"center",
+        paddingTop:"4rem"
+    }
+])

@@ -11,7 +11,7 @@ export const HeroBackground = style({
     width: '100%',
     height: '50rem',
     background: 'black',
-    margin: '3rem 0',
+    // margin: '3rem 0',
 })
 
 export const HeroContent = style([

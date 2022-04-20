@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom"
+import Radios, { Order } from "../../components/radios"
 import SiteHeaderUI from "../Home/SiteHeaderUI"
 import ListsModuleUI from "./ListsModuleUI"
-import { ListContentS, ListHeaderS, ListNameS, ListsUIContainerS, ListsUIContentContainerS, ListsUIHeaderContainerS, ListsUIHeaderContentS, ListsUIHeaderS, ListsUIHeaderTitleContainerS } from "./style.css"
+import { ListContentS, ListHeaderS, ListNameS, ListsUIContainerS, ListsUIContentContainerS, ListsUIHeaderContainerS, ListsUIHeaderContentS, ListsUIHeaderS, ListsUIHeaderTitleContainerS, nav } from "./style.css"
 
 export interface ListsUIProps {
     listName?:string
@@ -31,24 +32,24 @@ const ListsUI = (props:ListsUIProps) => {
                             </h1>
                         </div>
                         <div
-                            className={"nav-container"}
+                            className={nav}
                         >
-                            <ul>
-                                <li>
-                                    <Link
-                                        to={'the-hot-10'}
-                                    >
-                                        The Hot 10
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        to={'the-rate-high'}
-                                    >
-                                        the rate high
-                                    </Link>
-                                </li>
-                            </ul>
+                            <Radios
+                                radioProps={[
+                                    {
+                                        value:Order.Hot,
+                                        name:"按热度排名"
+                                    },
+                                    {
+                                        value:Order.Rate,
+                                        name:"按评分排序"
+                                    },
+                                    {
+                                        value:Order.Time,
+                                        name:"按时间排序"
+                                    }
+                                ]}
+                            />
                         </div>
                     </div>
                 </header>

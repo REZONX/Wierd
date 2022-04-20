@@ -1,9 +1,18 @@
-import ModuleUI from "../Module/ModuleUI"
+import ModuleUI, { ModuleUIProps } from "../Module/ModuleUI"
 import { FluidContainerStyle } from "../../public/style.css"
 import { ModuleListContainer, ModuleListContainerS, ModuleListName, ModuleListNameDesc, ModulesContainer, SideContainer, SideContent } from "./style.css"
 import SideSliderUI from "./SideSliderUI"
 
-const ModuleList = () => {
+export interface ModuleListUIProps extends ModuleUIProps{
+    moduleListName?:string
+    moduleListNameDesc?:string
+}
+
+const ModuleListUI = (props:ModuleListUIProps) => {
+    const {
+        moduleListName,
+        moduleListNameDesc,
+    } = props
     return (
         <div
             className={ModuleListContainerS}
@@ -11,15 +20,18 @@ const ModuleList = () => {
             <h1
                 className={ModuleListName}
             >
-                    hot line
+                    {
+                        moduleListName ?? "hot line"
+                    }
             </h1>
             <span
                 className={ModuleListNameDesc}
             >
-                    Rencently Top Movies
+                    {
+                        moduleListNameDesc ?? "Rencently Top Movies"
+                    }
             </span>
             <div>
-
             </div>
             <div
                 className={ModuleListContainer}
@@ -45,4 +57,4 @@ const ModuleList = () => {
         </div>
     )
 }
-export default ModuleList
+export default ModuleListUI

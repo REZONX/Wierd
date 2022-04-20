@@ -114,5 +114,19 @@ export const SiteMainHeaderHidden = style({
 })
 
 export const HomeStyle = style({
-    width: '100%'
+    width: '100%',
+    // position: "relative",
+})
+
+export const ActiveS = style([
+    SiteMainNavLinkStyle['small'],
+    {
+        color:'#fff',
+    }
+])
+
+export const siteNav = style({
+    display: "flex",
+    justifyContent:"space-between",
+    padding: "0 4rem",
 })

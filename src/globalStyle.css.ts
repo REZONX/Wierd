@@ -7,6 +7,7 @@ globalStyle('html',{
 globalStyle('body',{
     background: '#eee'
 })
+
 globalStyle('*',{
     margin: '0',
     padding: '0',
@@ -18,6 +19,7 @@ globalStyle('*',{
 globalStyle('ul',{
     textDecoration:'none',
     listStyle:'none',
+    marginBottom:'0px',
 })
 
 globalStyle('a',{

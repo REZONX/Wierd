@@ -1,3 +1,4 @@
+import { Carousel } from "antd"
 import HeroModuleUI from "./HeroModuleUI"
 import { HeroBackground, HeroContainer, HeroContent, HeroContentBg, HeroContentLeft, HeroContentRight, HeroModulesTitle, HeroModulesTitleBg} from "./style.css"
 
@@ -16,6 +17,11 @@ const HeroUI = (props:HeroUIProps) => {
                     <div className={HeroContentLeft}>
                         
                             {/* Video Component */}
+                            <Carousel
+                                autoplay
+                            >
+                                
+                            </Carousel>
                     </div>
                     <div className={HeroContentRight}>
                         <div
