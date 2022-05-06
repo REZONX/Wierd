@@ -1,20 +1,26 @@
-import { boolean } from 'fp-ts'
-import { UserInfo } from 'os'
 import React from 'react'
 import { post } from '../network/server/request'
 import { AuthContext, IAuthContext } from './AuthContext'
-
+import axios from 'axios'
+import { json } from 'stream/consumers'
+import { useNavigate } from 'react-router'
+import { message } from 'antd'
+import action from '../actions/index'
 
 
 export interface User {
-    id:string | number
-    name:string
-    pic:string
+    sysUser:{
+        userId:string | number
+        information?:string
+        userName:string
+        userPicture?:string
+        sex?:boolean
+    }
     token?:string
 }  
 
 export interface LoginData {
-    username:string
+    userName:string
     password:string
     isRememberMe:boolean
 }
@@ -33,7 +39,7 @@ const AuthProvider = (props:AuthProviderProps) => {
     const {
         children
     } = props
-    
+    let navigate = useNavigate()
     const [user,setUser] = React.useState<User | null>(null)
     const localStorageKey = "__auth_provider_token__"
     
@@ -43,30 +49,43 @@ const AuthProvider = (props:AuthProviderProps) => {
         window.localStorage.setItem(localStorageKey,user.token || '')
     } 
     
-    const login = async (data:LoginData) => {
-        let res = await post<User>("http://42.192.81.240:8607/hunan-admin/auth/login",data)
-        saveToken(res.data)
-        setUser(res.data)
+    const login = async (loginData:LoginData) => {
+        let {data} = await post<User>(action.login,loginData)
+        console.log(data.data)
+        if(data.code === 200){
+            saveToken(data.data)
+            setUser(data.data)
+            navigate("/")
+        }else {
+            message.error(data.msg)
+        }
+        
+        
     }
     
     const register = async (data:RegisterData) => {
-        let res = await post<User>("url",data)
+        // let res = await post<User>("url",data)
         
     }
     
     const logout = () => window.localStorage.removeItem(localStorageKey)
 
     const defaultUser:User  = {
-        id:0,
-        name:"未登陆",
-        pic:""
-
+        sysUser:{
+            userId:0,
+            userName:"未登陆",
+            userPicture:"",
+            sex:true,
+            information:""
+        },
+        token:""
     }
     const context:IAuthContext = {
         user:user ?? defaultUser,
         login,
         register,
         logout,
+        getToken,
     }
 
     return (

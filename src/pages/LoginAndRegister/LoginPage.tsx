@@ -4,7 +4,7 @@ import LoginForm from "../../components/Login/LoginForm"
 import { LoginData, useAuth } from "../../context/AuthProvider"
 import { FormCardS, LoginAndRegisterContainerS } from "./style.css"
 
-const LoginAndRegisterUI = () => {
+const LoginPage = () => {
     const {
         login
     } = useAuth()
@@ -25,4 +25,4 @@ const LoginAndRegisterUI = () => {
         </div>
     )
 }
-export default LoginAndRegisterUI
+export default LoginPage

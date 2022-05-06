@@ -1,6 +1,9 @@
+import { Input } from 'antd'
 import React from 'react'
-import {Link, NavLink} from 'react-router-dom'
+import {Link, NavLink,useNavigate} from 'react-router-dom'
 import AvatarDropDown from '../../components/AvatarDropdown'
+import SiteSearch from '../../components/SiteSearch'
+import { useAuth } from '../../context/AuthProvider'
 import {
     SiteMainHeaderStyle,
     SiteMainNavUlStyle,
@@ -10,6 +13,7 @@ import {
     siteNav
 } from './styles.css'
 
+const {Search} = Input
 export interface NavRouteInfo {
     path:string,
     content:string,
@@ -20,7 +24,27 @@ export interface SiteHeaderUIProps extends SiteMainNavigatorProps {
     className?:string
 }
 
+interface MenuInfo {
+    key: string;
+    keyPath: string[];
+    /** @deprecated This will not support in future. You should avoid to use this */
+    item: React.ReactInstance;
+    domEvent: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>;
+}
 const SiteHeaderUI = (props:SiteHeaderUIProps) => {
+    const {
+        logout
+    } = useAuth()
+    let navigate = useNavigate()
+    const handleClick = (e:MenuInfo) => {
+        if(e.key === "center"){
+            navigate("/user/user-info")
+        }
+        if(e.key === "logout"){
+            logout()
+            navigate("/login")
+        }
+    }
     return (
         <header
             className={props.className}
@@ -31,7 +55,10 @@ const SiteHeaderUI = (props:SiteHeaderUIProps) => {
                 <SiteMainNavigatorUI
                     {...props}
                 />
-                <AvatarDropDown/>
+                <SiteSearch/>
+                <AvatarDropDown
+                    onClick={handleClick}
+                />
             </nav>
         </header>
     )

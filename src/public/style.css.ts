@@ -133,10 +133,17 @@ export const bmb = style({
     marginBottom:"10rem"
 })
 
-export const pages = style([
+export const pagesContent = style([
     {
         paddingTop:'7rem',
         background:"#fff",
     },
     FluidContainerStyle
 ])
+
+export const clearFix = style({
+    ":before":{
+        content: "",
+        display: "table",
+    }
+})

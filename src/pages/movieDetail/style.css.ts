@@ -63,11 +63,13 @@ export const header = style([
 
 export const type = style([
     {
+        display: "inline-block",
         color:"#d63031",
-        fontSize:"3rem",
+        fontSize:"1.5rem",
         fontWeight:"bolder",
-        letterSpacing:"1.5rem",
+        letterSpacing:".5rem",
         marginBottom:"1rem",
+        marginRight:"1.5rem"
     },
     // font,
     mb
@@ -126,4 +128,35 @@ export const p = style({
     fontSize:"1.2rem",
     letterSpacing:".2rem",
     color:"#2d3436"
+})
+
+export const cinemaContainer = style({
+    
+})
+
+export const menuContainer = style({
+    marginBottom:"4rem",
+}) 
+
+export const actorsUl = style({
+    display: "inline-block"
+})
+
+export const actorsLi = style({
+    display: "inline-block",
+    padding: "1rem"
+})
+
+export const actorsContainer = style({
+    display: "flex",
+})
+
+export const iconContainer = style({
+    position: "absolute",
+    top: "0",
+    right: "0"
+})
+
+export const container = style({
+    position: "relative"
 })

@@ -1,9 +1,11 @@
 import {style,styleVariants} from '@vanilla-extract/css'
 import {LinkUnderLine} from '../../lib.css'
+import { clearFix } from '../../public/style.css'
 
 export const SiteMainHeaderStyle  = styleVariants({
     large:{
         padding: '20px 0',
+        position: "relative"
     },
     small:{
         position: 'fixed',
@@ -113,10 +115,16 @@ export const SiteMainHeaderHidden = style({
     top:'-80px',
 })
 
-export const HomeStyle = style({
-    width: '100%',
-    // position: "relative",
-})
+export const HomeStyle = style([
+    {
+        width: '100%',
+        // overflow: "hidden",
+        // border: "0.2 solid rgba(220,38,38,0)",
+        // position: "relative",
+        display: "inline-block"
+    },
+    clearFix
+])
 
 export const ActiveS = style([
     SiteMainNavLinkStyle['small'],

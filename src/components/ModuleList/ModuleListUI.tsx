@@ -2,16 +2,22 @@ import ModuleUI, { ModuleUIProps } from "../Module/ModuleUI"
 import { FluidContainerStyle } from "../../public/style.css"
 import { ModuleListContainer, ModuleListContainerS, ModuleListName, ModuleListNameDesc, ModulesContainer, SideContainer, SideContent } from "./style.css"
 import SideSliderUI from "./SideSliderUI"
+import { MovieInfo } from "../../types"
+import { parseImg } from "../../utils/parse"
 
-export interface ModuleListUIProps extends ModuleUIProps{
-    moduleListName?:string
-    moduleListNameDesc?:string
+export interface ModuleListUIProps{
+    moduleListName:string
+    moduleListNameDesc:string
+    source:MovieInfo[]
+    sideSource:MovieInfo[]
 }
 
 const ModuleListUI = (props:ModuleListUIProps) => {
     const {
         moduleListName,
         moduleListNameDesc,
+        source,
+        sideSource,
     } = props
     return (
         <div
@@ -38,12 +44,13 @@ const ModuleListUI = (props:ModuleListUIProps) => {
             >
                 <div className={ModulesContainer}>
                     {
-                        [0,0,0,0,0,0].map(item=>{
+                        source.map(item=>{
                             return <ModuleUI
-                                        movieImg="https://tse1-mm.cn.bing.net/th/id/OIP-C.jfrG_XRPBS24z7Bi9dEJmAHaJ4?pid=ImgDet&rs=1"
-                                        movieLink="Alice"
-                                        movieName="Alice in Wanderland"
+                                        movieImg={parseImg(item.moviePoster)}
+                                        movieLink={`/movies/${item.movieId}`}
+                                        movieName={item.movieNameCn}
                                         moduleType='oneTwo'
+                                        movieScore={item.movieScore}
                                     />
                         })
                     }
@@ -51,7 +58,7 @@ const ModuleListUI = (props:ModuleListUIProps) => {
 
                 <SideSliderUI
                     sideName='hot'
-                    charts={[]}
+                    charts={sideSource}
                 />
             </div>
         </div>

@@ -1,12 +1,17 @@
+import { chainFirstReaderK } from "fp-ts/lib/FromReader"
 import { Link } from "react-router-dom"
 import { JumpLink, MovieDesc, MovieName } from "../../public/style.css"
+import { ActorInfo, MovieInfo } from "../../types"
 import { SideContainer, SideContent, SideDetailContainer, SideHeader, SideListContainer, SideModuleNum, SideModuleStyle, SideMovieDesc, SideMovieName } from "./style.css"
 
-export interface SideSliderUIProps<T = any> {
+export interface SideSliderUIProps {
     sideName:string,
-    charts:Array<T>
+    charts:Array<MovieInfo>
 }
 const SideSliderUI = (props:SideSliderUIProps) => {
+    const {
+        charts
+    } = props
     return (
         <aside
             className={SideContainer}
@@ -22,31 +27,23 @@ const SideSliderUI = (props:SideSliderUIProps) => {
                     }
                 </header>
                 <div className={SideListContainer}>
-                    <SideModule
-                        num={1}
-                        movieName = {'Alice in wanderland'}
-                        movieDesc = {'this is movie is so good!!!!!!'}
-                    />
-                    <SideModule
-                        num={2}
-                        movieName = {'The advanture'}
-                        movieDesc = {'scalet witch is so strong'}
-                    />
-                    <SideModule
-                        num={3}
-                        movieName = {'lana del rey'}
-                        movieDesc = {'my favorite singer in the world'}
-                    />
-                    <SideModule
-                        num={4}
-                        movieName = {'Under the sea'}
-                        movieDesc = {'i feel sick when i take long time to play it'}
-                    />
-                    <SideModule
-                        num={5}
-                        movieName = {'Kate bush'}
-                        movieDesc = {'a gorgero woman '}
-                    />
+                    {
+                        charts.map((item,index)=>{
+                            return (
+                                <div>
+                                    <Link
+                                        to={`movies/${item.movieId}`}
+                                    >
+                                        <SideModule
+                                            num={index+1}
+                                            movieName = {item.movieNameCn}
+                                            movieDesc = {item.movieIntroduction.substring(0,13)+"..."}
+                                        />
+                                    </Link>
+                                </div>
+                            )
+                        })
+                    }
                     <Link
                         className={JumpLink}
                         to={'lists'}

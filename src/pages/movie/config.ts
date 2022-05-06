@@ -1,3 +1,4 @@
+import { RadioProps } from "../../components/radios"
 import { ITabsGroups, Tabs } from "../../components/tabs/types"
 
 type Key = string | number
@@ -194,5 +195,16 @@ export const MovieTabsGroups:ITabsGroups = [
     {
         name:"年代",
         tabs:movieGen
+    }
+]
+
+export const movieRadios:Array<RadioProps> = [
+    {
+        key:"releaseDate",
+        name:"按时间排序"
+    },
+    {
+        key:"movieScore",
+        name:"按评价排序"
     }
 ]

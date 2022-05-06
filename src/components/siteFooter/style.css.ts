@@ -3,7 +3,7 @@ import { MarginLeftAndRight, MarginTopAndBottom } from "../../public/style.css";
 
 export const container = style({
     background: "#000",
-    padding: "4rem",
+    padding: "60px 0 60px",
     position: "fixed",
     width: "100%",
     zIndex:"0",

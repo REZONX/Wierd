@@ -17,10 +17,16 @@ const LoginForm = (props:LoginFormProps) => {
         <Form
             onFinish={handleSubmit}
         >
+            <h1
+                style={{
+                    "textAlign":'center',
+                    "marginBottom":"2rem",
+                }}
+            >Login</h1>
             <Form.Item
                 label={"用户名"}
                 labelAlign={"right"}
-                name={"username"}
+                name={"userName"}
                 rules={[
                     {
                         required:true,
@@ -31,7 +37,7 @@ const LoginForm = (props:LoginFormProps) => {
                 <Input
                     placeholder="请输入账号"
                     maxLength={20}
-                    name="username"
+                    name="userName"
                 />
             </Form.Item>
             <Form.Item
@@ -66,7 +72,7 @@ const LoginForm = (props:LoginFormProps) => {
                     登陆
                 </Button>
             </Form.Item>
-            <Form.Item
+            {/* <Form.Item
                 name="isRememberMe"
                 valuePropName="checked"
                 wrapperCol={{
@@ -75,13 +81,13 @@ const LoginForm = (props:LoginFormProps) => {
                 }}
             >
                 <Checkbox>Remember me</Checkbox>
-            </Form.Item>
+            </Form.Item> */}
             <div>
                 如果您还没有账号，进入
                 {
                     <Link
                         className={RegisterLink}
-                        to={"./register"}
+                        to={"/register"}
                     >
                         注册界面
                     </Link>

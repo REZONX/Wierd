@@ -3,7 +3,11 @@ import { recipe } from '@vanilla-extract/recipes';
 
 export const ModuleStyle = recipe({
     base:{
-        padding: '2rem 2rem'
+        padding: '2rem 2rem',
+        ":before":{
+            content: "",
+            display: "table",
+        }
     },
     variants:{
         width:{

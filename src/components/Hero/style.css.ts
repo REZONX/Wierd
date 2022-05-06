@@ -1,12 +1,15 @@
 import { style,styleVariants } from "@vanilla-extract/css";
 import {calc} from '@vanilla-extract/css-utils';
-import { BackgroudWS, BottomLineSmall, FluidContainerStyle } from "../../public/style.css";
+import { BackgroudWS, BottomLineSmall, clearFix, FluidContainerStyle } from "../../public/style.css";
 import { BottomLine } from "../../public/style.css";
 
-export const HeroContainer = style({
-    position: 'relative',
-    display: 'flex',
-})
+export const HeroContainer = style([
+    {
+        position: 'relative',
+        display: 'flex',
+    },
+    clearFix
+])
 export const HeroBackground = style({
     width: '100%',
     height: '50rem',
@@ -27,7 +30,8 @@ export const HeroContent = style([
         transform: 'translateY(-50%) translateX(-50%)',
         // left:calc.divide(calc.subtract('100vw','1280px'),2),
         left: '50%'
-    }
+    },
+    clearFix
 ])
 
 export const HeroContentLeft  = style({
@@ -48,20 +52,23 @@ export const HeroContentRight = style({
     // paddingRight:'4rem',
 })
 
-export const HeroContentBg = style({
-    // background:'#fff',
-    display: 'flex',
-    // position: 'absolute',
-    zIndex:'2',
-    width: '100%',
-    // height: '40rem',
-    // background: '#fff',
-    // top: '50%',
-    // transform: 'translateY(-50%) translateX(-50%)',
-    // left:calc.divide(calc.subtract('100vw','1280px'),2),
-    // left: '50%'
-    
-})
+export const HeroContentBg = style([
+    {
+        // background:'#fff',
+        display: 'flex',
+        // position: 'absolute',
+        zIndex:'2',
+        width: '100%',
+        // height: '40rem',
+        // background: '#fff',
+        // top: '50%',
+        // transform: 'translateY(-50%) translateX(-50%)',
+        // left:calc.divide(calc.subtract('100vw','1280px'),2),
+        // left: '50%'
+        
+    },
+    clearFix
+])
 
 //HeroModule
 

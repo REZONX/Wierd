@@ -4,11 +4,11 @@ import { Image, ImageContainer, ImageCover, ImageCoverContent, ImageLink, Module
 
 export type ModuleType = 'oneThird' | 'oneFourth' | 'oneTwo'
 export interface ModuleUIProps {
-    moduleType?:ModuleType
-    movieName?:string
-    movieImg?:string
-    movieLink?:string
-    movieScore?:number
+    moduleType:ModuleType
+    movieName:string
+    movieImg:string
+    movieLink:string
+    movieScore:number
 }
 const ModuleUI = (props:ModuleUIProps) => {
     return (
@@ -21,7 +21,7 @@ const ModuleUI = (props:ModuleUIProps) => {
                 className={ImageContainer}
             >
                 <Link
-                    to={props.movieLink??''}
+                    to={props.movieLink}
                     className={ImageLink}
                 >
                     <img src={props.movieImg} alt="" 

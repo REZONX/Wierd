@@ -62,3 +62,45 @@ export const container = style([
     },
     FluidContainerStyle
 ])
+
+export const cinemaInfoContainer = style([
+    {
+        paddingTop:"8rem",
+        position: "relative",
+    },
+])
+
+export const header = style({
+    position: "relative",
+    background: "black"
+})
+export const showListCotainer = style([
+    
+])
+
+export const tabsContainer = style({
+    border: "2px solid #eee"
+})
+
+export const itemContainer = style({
+    padding: "2rem",
+})
+
+export const itemContent = style({
+    borderBottom:"1px solid #eee",
+    display: "flex",
+    justifyContent:"space-between"
+})
+export const cinemaName = style({
+    fontWeight:"800",
+    marginBottom:"2rem",
+    letterSpacing:"2px"
+})
+
+export const cinemaAdd = style({
+    marginBottom:"2rem"
+})
+
+export const tagsContainer = style({
+    marginBottom:"2rem",
+})

@@ -1,5 +1,6 @@
 import { Col, Divider, Row } from 'antd'
 import React from 'react'
+import ChooseSeat from '../ChooseSeat'
 import { a, container, divider, font, heart, lastContainer, myName, oneColContaienr, titleS } from './style.css'
 interface SiteFooterProps {
 

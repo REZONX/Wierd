@@ -1,11 +1,12 @@
 import { style } from "@vanilla-extract/css";
-import { BackgroudWS, BottomLineSmall, FluidContainerStyle, MovieDesc, MovieName } from "../../public/style.css";
+import { BackgroudWS, BottomLineSmall, clearFix, FluidContainerStyle, MovieDesc, MovieName } from "../../public/style.css";
 import { vars } from "../../vars.css";
 
 //Modules
 export const ModuleListContainerS = style([
     FluidContainerStyle,
     BackgroudWS,
+    clearFix
 ])
 
 export const ModuleListName = style({
@@ -52,13 +53,16 @@ export const ModulesContainer = style([
 
 
 //Side
-export const SideContainer = style({
-    width: '33.3%',
-    padding: '2rem',
-    // background: '#eee',
-    // height: '600px'
-    position: 'relative',
-})
+export const SideContainer = style([
+    {
+        width: '33.3%',
+        padding: '2rem',
+        // background: '#eee',
+        // height: '600px'
+        position: 'relative',
+    },
+    clearFix,
+])
 
 export const SideContent = style({
     // background: '#eee',

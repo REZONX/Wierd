@@ -21,6 +21,12 @@ const SiteAvatar = (props:SiteAvatarProps) => {
         src?(
             <Avatar
                 // size={"large"}
+                style={{
+                    display: "inline-block",
+                    verticalAlign:'middle',
+                    // marginLeft:'2rem',
+                    marginRight:'1rem',
+                }}
                 src={src}
             />
         ):(

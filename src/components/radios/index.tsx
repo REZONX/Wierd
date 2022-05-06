@@ -1,37 +1,36 @@
 import React from 'react'
 import { Radio, RadioChangeEvent } from "antd"
+import { useLists } from '../../context/ListsProvider'
+import { Key } from '../../types'
 
-interface RadioProps {
-    value:Order
+export interface RadioProps {
+    key:Key
     name:string
 }
 interface RadiosProps {
+    defaultValue:Key
+    handleChange:(e:RadioChangeEvent)=>void
     radioProps:Array<RadioProps>
 }
-export enum Order {
-    Hot = "hot",
-    Time = "time",
-    Rate = "rate"
-}
+
 const Radios = (props:RadiosProps) => {
     const {
+        defaultValue,
+        handleChange,
         radioProps
     } = props
-    const [value,setValue] = React.useState<Order>(Order.Hot)
-    const handleChange = (evt:RadioChangeEvent) => {
-        setValue(evt.target.value)
-    }
+
     return(
         <div>
             <Radio.Group
-                defaultValue={value}
+                defaultValue={defaultValue}
                 onChange={handleChange}
             >
                 {
                     radioProps.map(item=>{
                         return (
                             <Radio
-                                value={item.value}
+                                value={item.key}
                             >
                                 {item.name}
                             </Radio>
