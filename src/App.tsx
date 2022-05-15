@@ -46,6 +46,7 @@ import CinemaInfo from './pages/Cinema/CinemaInfo';
 import CinemaDetail from './pages/CinemaDetail';
 import ChooseSeat from './pages/ChooseSeat';
 import ActorDetail from './pages/Actors/ActorDetail';
+import ProtectedLayout from './pages/ProtectedLayout';
 
 const App:FC = () => {
   const elements = useRoutes(routes)
@@ -56,20 +57,21 @@ const App:FC = () => {
         {/* {
           elements
         } */}
-        <SiteHeader
+        {/* <SiteHeader
           navStyle='small'
           navLink={navConfig}
-        />
+        /> */}
         <Routes>
-          <Route element={<MainPage/>} path={'/'}/>
+        <Route element = {<LoginPage/> } path={'/login'}/>
+        <Route element = {<RegisterPage/> } path={'/register'}/>
+        <Route element={<ProtectedLayout/>}>
+        <Route element={<MainPage/>}  path={'/'}/>
           {/* <Route index element={<LoginPage/>}/> */}
-          <Route element = {<LoginPage/> } path={'/login'}/>
           <Route element={<MoviePage/> } path={"/movies"}/>
           <Route element={<MovieDetail/>} path={"/movies/:movieId"}/>
           <Route element = {<CinemaUI/>} path = {'/cinemas'}/>
           <Route element={<CinemaDetail/>} path={"/cinemas/:cinemaId"}/>
           <Route element = {<ListsUI/>} path = {'/lists'}/>
-          <Route element = {<RegisterPage/> } path={'/register'}/>
           <Route element={<ChooseSeat/>} path={'/choose-seat/:sessionId'}/>
           <Route element={<ActorDetail/>} path={'/actors/:actorId'}/>
           <Route element={<BillPay/>} path={'/bill-pay/:billId'}/>
@@ -83,6 +85,27 @@ const App:FC = () => {
                 element={<PayInfo/>}
             />
           </Route>
+        </Route>
+          {/* <Route element={<MainPage/>}  path={'/'}/>
+          <Route index element={<LoginPage/>}/>
+          <Route element={<MoviePage/> } path={"/movies"}/>
+          <Route element={<MovieDetail/>} path={"/movies/:movieId"}/>
+          <Route element = {<CinemaUI/>} path = {'/cinemas'}/>
+          <Route element={<CinemaDetail/>} path={"/cinemas/:cinemaId"}/>
+          <Route element = {<ListsUI/>} path = {'/lists'}/>
+          <Route element={<ChooseSeat/>} path={'/choose-seat/:sessionId'}/>
+          <Route element={<ActorDetail/>} path={'/actors/:actorId'}/>
+          <Route element={<BillPay/>} path={'/bill-pay/:billId'}/>
+          <Route element={<User/>} path={'/user'}>
+            <Route
+                path='user-info'
+                element={<UserInfo/>}
+            />
+            <Route
+                path='pay-info'
+                element={<PayInfo/>}
+            />
+          </Route> */}
         </Routes>
       </div>
     </AppProvider>

@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { style, styleVariants } from "@vanilla-extract/css";
 import { BackgroudWS, BottomLineSmall, clearFix, FluidContainerStyle, MovieDesc, MovieName } from "../../public/style.css";
 import { vars } from "../../vars.css";
 
@@ -108,7 +108,44 @@ export const SideModuleNum = style({
     justifyContent:'center',
     alignItems:'center',
 })
+export const moduleNumBase = style({
+    width: '4rem',
+    height: '4rem',
+    // paddingTop:'10%',
+    fontSize:'2rem',
+    fontWeight:'600',
+    flex: '1',
+    display: 'flex',
+    justifyContent:'center',
+    alignItems:'center',
+}) 
 
+export const moduleNumVar = styleVariants({
+    "one":[
+        moduleNumBase,
+        {
+            background: "#fed330"
+        }
+    ],
+    "two":[
+        moduleNumBase,
+        {
+            background: "#f1f2f6"
+        }
+    ],
+    "three":[
+        moduleNumBase,
+        {
+            background: "#cc8e35"
+        }
+    ],
+    "else":[
+        moduleNumBase,
+        {
+            background: "#eee"
+        }
+    ]
+})
 export const SideDetailContainer = style({
     marginLeft:'2rem',
     flex: '5'
@@ -117,9 +154,26 @@ export const SideDetailContainer = style({
 export const SideMovieName = style([
     MovieName,
     BottomLineSmall,
+    {
+        textAlign:"center",
+        color:"#1e272e",
+    }
 ])
 
 export const SideMovieDesc = style([
     MovieDesc,
     BottomLineSmall,
 ])
+
+export const link = style({
+    display: "flex",
+    justifyContent:"space-between",
+    padding: "2rem",
+    alignItems:"center",
+})
+
+export const score = style({
+    color:"#fdb863",
+    fontSize:"1rem",
+    fontWeight:"700"
+})

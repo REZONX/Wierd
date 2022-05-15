@@ -39,10 +39,11 @@ axios.interceptors.response.use(response=>{
         message.error(errortext)
     
         // 错误状态处理
-        if (status === 401) {
+        if (status === 401&&window.location.href!=='/login') {
             window.location.href = '/login'
-
-        } else if (status === 403) {
+            console.log(window.location.href)
+        } 
+        else if (status === 403&&window.location.href!=='/login') {
             window.location.href = '/login'
         } 
         // else if (status >= 404 && status < 422) {

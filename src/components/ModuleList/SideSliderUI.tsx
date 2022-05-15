@@ -1,8 +1,8 @@
 import { chainFirstReaderK } from "fp-ts/lib/FromReader"
 import { Link } from "react-router-dom"
-import { JumpLink, MovieDesc, MovieName } from "../../public/style.css"
+import { JumpLink, MovieDesc, MovieName} from "../../public/style.css"
 import { ActorInfo, MovieInfo } from "../../types"
-import { SideContainer, SideContent, SideDetailContainer, SideHeader, SideListContainer, SideModuleNum, SideModuleStyle, SideMovieDesc, SideMovieName } from "./style.css"
+import { link,moduleNumVar,score, SideContainer, SideContent, SideDetailContainer, SideHeader, SideListContainer, SideModuleNum, SideModuleStyle, SideMovieDesc, SideMovieName } from "./style.css"
 
 export interface SideSliderUIProps {
     sideName:string,
@@ -36,6 +36,7 @@ const SideSliderUI = (props:SideSliderUIProps) => {
                                         num={index+1}
                                         movieName = {item.movieNameCn}
                                         movieDesc = {item.movieIntroduction.substring(0,13)+"..."}
+                                        score = {item.movieScore}
                                     />
                                 </div>
                             )
@@ -53,19 +54,31 @@ const SideSliderUI = (props:SideSliderUIProps) => {
     )
 }
 export interface SideModuleProps {
-    num?:number,
+    num:number,
     movieName?:string,
     movieDesc?:string,
     movieId:number
-
+    score:number
 }
 export const SideModule = (props:SideModuleProps) => {
+    const parseNum = (idx:number) => {
+        switch(idx){
+            case 1:
+                return "one"
+            case 2:
+                return "two"
+            case 3:
+                return "three"
+            default :
+                return "else"
+        }
+    }
     return (
         <div
             className={SideModuleStyle}
         >
             <div
-                className={SideModuleNum}
+                className={moduleNumVar[parseNum(props.num)]}
             >
                 <span>
                     {
@@ -75,18 +88,17 @@ export const SideModule = (props:SideModuleProps) => {
             </div>
             <div className={SideDetailContainer}>
                 <Link
+                    className={link}
                     to={`movies/${props.movieId}`}
                 >
-                    <h2
+                    <span
                         className={SideMovieName}
                     >
                         {props.movieName}
-                    </h2>
-                    <p
-                        className={SideMovieDesc}
-                    >
-                        {props.movieDesc}
-                    </p>
+                    </span>
+                    <span
+                        className={score}
+                    >{props.score} 分</span>
                 </Link>
             </div>
         </div>

@@ -242,7 +242,7 @@ export const MovieDetailContent = (props:MovieDetailContentProps) => {
                             className={li}>中国大陆/90分钟</li> */}
                             <li
                             className={date}>
-                                {time}
+                                {time.slice(0,10)}
                             </li>
                         </ul>
                     </div>

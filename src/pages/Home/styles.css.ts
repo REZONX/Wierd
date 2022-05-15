@@ -138,3 +138,29 @@ export const siteNav = style({
     justifyContent:"space-between",
     padding: "0 4rem",
 })
+
+export const arrowBase = style({
+    fontSize:"3rem",
+    zIndex:"2",
+    color:"#fff",
+    opacity:"0",
+    transition: "opacity .5s ease",
+    ":hover":{
+        opacity: "1"
+    }
+})
+
+export const arrowVar = styleVariants({
+    "left":[
+        arrowBase,
+        {
+            left:"50px"
+        }
+    ],
+    "right":[
+        arrowBase,
+        {
+            right: "50px"
+        }
+    ]
+})

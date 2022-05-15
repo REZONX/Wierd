@@ -23,13 +23,13 @@ const ModuleListUI = (props:ModuleListUIProps) => {
         <div
             className={ModuleListContainerS}
         >
-            <h1
+            <div
                 className={ModuleListName}
             >
                     {
                         moduleListName ?? "hot line"
                     }
-            </h1>
+            </div>
             <span
                 className={ModuleListNameDesc}
             >

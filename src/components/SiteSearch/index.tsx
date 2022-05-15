@@ -20,6 +20,10 @@ const SiteSearch = () => {
     const handleSearch = (value:string) => {
         setValue(value)
     }
+    // const handleBlur = () => {
+    //     setValue(value=>value)
+    //     setActors([])
+    // }
     // const handleChange = (value:string) => {
     //     // setValue(value)
     //     console.log(value)
@@ -33,6 +37,7 @@ const SiteSearch = () => {
                 showSearch
                 onSearch={handleSearch}
                 // onChange={handleChange}
+                // onBlur={handleBlur}
                 optionFilterProp="children"
             >
                 {
