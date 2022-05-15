@@ -8,9 +8,15 @@ const ListsProvider = (props:ListsProviderProps) => {
         children
     } = props
     const [currentList,setCurrentList] = React.useState(2)
+    const [page,setPage] = React.useState(1)
+    const [pageSize,setPageSize] = React.useState(10)
     const context:IListsContext = {
         currentList,
         setCurrentList,
+        page,
+        pageSize,
+        setPage,
+        setPageSize
     }
     return (
         <ListsContext.Provider

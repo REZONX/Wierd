@@ -35,10 +35,15 @@ const ShowList = (props:ShowListProps) => {
                     )
                 })
             }
-            <Pagination
-                defaultPageSize={defaultPageSize}
+            {/* <Pagination
+                defaultCurrent={1}
+                defaultPageSize={10}
+                current={page}
+                hideOnSinglePage
+                total={total}
                 onChange={handleChange}
-            />
+                showSizeChanger
+            /> */}
         </div>
     )
 }

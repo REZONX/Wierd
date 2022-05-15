@@ -127,8 +127,20 @@ export interface Session {
     sysCinema:CinemaInfo,
 }
 
+export interface Cinema {
+    cinemaName:string
+    cinemaId:number
+    cinemaAddress:string
+    cinemaAreaId:Key
+    cinemaBrandId:Key
+    cinemaPicture:string
+    isRefunded:boolean
+    isTicketChanged:boolean
+    sysHallCategoryList:HallCategoryProps[]
+    sysMovieList:Array<MovieInfo>
+}
 export interface ICinemaDetail {
-    cinema:CinemaInfo
+    cinema:Cinema
     sessions:Array<Session>
 }
 

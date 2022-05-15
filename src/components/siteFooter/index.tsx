@@ -30,7 +30,7 @@ const SiteFooter = (props:SiteFooterProps) => {
                         ]}
                     />
                     <OneCol
-                        title="技术选型"
+                        title="参考文献"
                         links={[
                             {
                                 name:"React",
@@ -64,19 +64,11 @@ const SiteFooter = (props:SiteFooterProps) => {
                         ]}
                     />
                     <OneCol
-                        title="技术选型"
+                        title="项目地址"
                         links={[
                             {
-                                name:"React",
-                                link:"https://reactjs.org/"
-                            },
-                            {
-                                name:"Typescript",
-                                link:"https://www.typescriptlang.org/"
-                            },
-                            {
-                                name:"VanillaExtract",
-                                link:"https://vanilla-extract.style/"
+                                name:"Wierd",
+                                link:"https://github.com/REZONX/Wierd"
                             }
                         ]}
                     />

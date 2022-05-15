@@ -1,31 +1,71 @@
 import { Image } from 'antd'
+import classNames from 'classnames'
 import React from 'react'
 import { useParams } from 'react-router'
 import DetailHeader from '../../components/DetailHeader'
-import { CinemaInfo, ICinemaDetail } from '../../types'
+import SubTitle from '../../components/SubTitle'
+import { Category, Cinema, CinemaInfo, ICinemaDetail, MovieInfo, Session } from '../../types'
 import { parseImg } from '../../utils/parse'
 import { imgBG } from '../Actors/style.css'
 import CinemaDetailList from './CinemaList'
-import { fetchCinemaDetail } from './net'
-import { baseColor, listContainer } from './style.css'
+import { fetchCinemaDetail, fetchSpecCinemaDetail } from './net'
+import { baseColor, listContainer, movieItem, movieItemActive, movieList, moviePoster, sectionContainer, sessionDate, sessionDateActive, sessionTitle } from './style.css'
 
 const CinemaDetail = () => {
     const params:any = useParams()
     const defaultValue:ICinemaDetail = {
-        cinema:{} as CinemaInfo,
+        cinema:{} as Cinema,
         sessions:[]
     }
     const [cinemaDetail,setCinemaDetail] = React.useState<ICinemaDetail>(defaultValue)
+    const [specDetail,setSpecDetail] = React.useState<ICinemaDetail>(defaultValue)
+    const [currentMovie,setCurrentMovie] = React.useState(0)
+    const [active,setActive] = React.useState(0)
+    const [currentDate,setCurrentDate] = React.useState("")
+    const [dates,setDates] = React.useState([""])
     React.useEffect(()=>{
         fetchCinemaDetail(params.cinemaId).then(res=>{
             setCinemaDetail(res)
+            setCurrentMovie(res?.cinema?.sysMovieList?.[0]?.movieId)
         })
     },[params.cinemaId])
+    React.useEffect(()=>{
+        fetchSpecCinemaDetail(params.cinemaId,currentMovie?.toString()).then(res=>{
+            setSpecDetail(res)
+            setCurrentDate(res?.sessions?.[0]?.sessionDate)
+            const dates:Array<string> = []
+            res?.sessions?.forEach(session=>{
+                if(dates.indexOf(session?.sessionDate)===-1){
+                    dates.push(session?.sessionDate)
+                }
+            })
+            setDates(dates)
+        })
+    },[currentMovie])
+
     const {
         cinema,
-        sessions
     } = cinemaDetail
-    console.log(sessions)
+
+    const filterDate = (date:string,sessions:Session[]) => {
+        return sessions.filter(session=>{
+            return session.sessionDate===date
+        })
+    }
+
+    const filterMovie = (movieId:number,movieList:MovieInfo[]) => {
+        return movieList.filter(movie=>{
+            return movie.movieId === movieId
+        })[0]
+    }
+
+    const formatList = (name:string[]) => {
+        const str = name.slice(0,3).reduce((pre,cur)=>{
+            return pre + cur +"/"
+        },'')
+        return str.slice(0,str.length-1)
+    }
+    const {movieNameCn,movieScore,majorActorNameList,movieCategoryList,movieLength} = filterMovie(currentMovie,specDetail?.cinema?.sysMovieList)
     return (
         <div>
             <DetailHeader
@@ -42,18 +82,89 @@ const CinemaDetail = () => {
                 >
                     {cinema.cinemaAddress}
                 </div>
-                <div
+                {/* <div
                     className={baseColor}
                 >
                     <span>电话</span>
                     <span>{10642125}</span>
-                </div>
+                </div> */}
             </DetailHeader>
             <div
                 className={listContainer}
             >
+                <SubTitle
+                    title='Movie Information'
+                />
+                <div
+                    className={sectionContainer}
+                >
+                    <ul
+                        className={movieList}
+                    >
+                        {
+                            cinemaDetail?.cinema?.sysMovieList?.map((movie,index)=>{
+                                return (
+                                    <li
+                                        className={classNames(movieItem,{
+                                            [`${movieItemActive}`]:index === active
+                                        })}
+                                        onClick={()=>{
+                                            setActive(index)
+                                            setCurrentMovie(movie?.movieId)
+                                        }}
+                                    >
+                                        <img className={moviePoster} src={parseImg(movie?.moviePoster)} alt="" />
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
+                </div>
+                <div>
+                    <div>
+                        <span>{movieNameCn}</span>
+                        <span>{movieScore}分</span>
+                    </div>
+                    <div>
+                        <div>
+                            <span>时长：</span>
+                            <span>{movieLength}</span>
+                        </div>
+                        <div>
+                            <span>类型：</span>
+                            <span>{movieCategoryList.slice(0,3).reduce((pre,cur)=>{
+                                return pre  + cur.movieCategoryName + '/'
+                            },"")}</span>
+                        </div>
+                        <div>
+                            <span>主演：</span>
+                            <span>{formatList(majorActorNameList)}</span>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    className={sectionContainer}
+                >
+                    <span className={sessionTitle}>观影时间：</span>
+                    {
+                        dates.map((date ,index)=> {
+                            return (
+                                <span 
+                                    className={classNames(sessionDate,{
+                                        [`${sessionDateActive}`]:date === currentDate
+                                    })}
+                                    onClick={()=>{
+                                        setCurrentDate(date)
+                                    }}
+                                >
+                                    {date}
+                                </span>
+                            )
+                        })
+                    }
+                </div>
                 <CinemaDetailList
-                    sourceData={sessions}
+                    sourceData={filterDate(currentDate,specDetail.sessions)}
                 />
             </div>
         </div>

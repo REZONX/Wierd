@@ -74,11 +74,13 @@ const MovieDetail = (props:MovieDetailProps) => {
     }
     const [data,setData] = React.useState<MovieInfo>(defaultValue)
     const [content,setContent] = React.useState<CurrentContent|string>("introduction")
+    const [isComment,setIsComment] = React.useState(false)
+    console.log(isComment)
     React.useEffect(()=>{
         fetchMovieInfo(params.movieId).then(res=>{
             setData(res)
         })
-    },[params])
+    },[params,isComment])
 
     const clickActorsAll = () => {
         setContent("actors")
@@ -125,12 +127,13 @@ const MovieDetail = (props:MovieDetailProps) => {
                                         actorRoleList={data.actorRoleList}
                                         onClick={clickActorsAll}
                                     />
-                                    <Pictures
+                                    {/* <Pictures
                                         onClick={clickPituresAll}
-                                    />
+                                    /> */}
                                     <UserComment
                                         comments={data.movieCommentList}
                                         movieId={`${data.movieId}`}
+                                        setComment={setIsComment}
                                     />
                                 </Tabs.TabPane>
                                 <Tabs.TabPane tab="演员" key={"actors"}>
@@ -176,9 +179,6 @@ const MovieDetail = (props:MovieDetailProps) => {
                                             })
                                         }
                                     </div>
-                                </Tabs.TabPane>
-                                <Tabs.TabPane tab="图集" key={"pictures"}>
-                                    
                                 </Tabs.TabPane>
                             </Tabs>
                         </div>

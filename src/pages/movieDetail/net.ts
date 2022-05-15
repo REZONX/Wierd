@@ -22,4 +22,5 @@ export const putCommentInfo = async (params:object) => {
     }else {
         message.error(data.msg || "请求错误")
     }
+    return data.code
 }

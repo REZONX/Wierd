@@ -18,16 +18,16 @@ interface ICommentForm {
 interface UserCommentProps {
     comments:Array<CommentInfo>
     movieId:string
+    setComment:(isComment:boolean)=>void
 }
 const UserComment = (props:UserCommentProps) => {
     const {
         comments,
         movieId,
+        setComment
     } = props
     const [visible,setVisible] = React.useState(false)
-    React.useEffect(()=>{
 
-    },[])
     let initalValues = {
         score:0,
         content:""
@@ -39,6 +39,7 @@ const UserComment = (props:UserCommentProps) => {
     form.setFieldsValue(initalValues)
     
     const handleOk = (e:React.MouseEvent<HTMLElement, MouseEvent>) => {
+        setComment(true)
         let score = form.getFieldValue('score')
         let content = form.getFieldValue('content')
         let params:CommentParams = {
@@ -49,6 +50,7 @@ const UserComment = (props:UserCommentProps) => {
             movieId,
         }
         putCommentInfo(params)
+        setComment(false)
         setVisible(false)
     }
     const handleClick = () =>{

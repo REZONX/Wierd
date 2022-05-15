@@ -26,3 +26,4 @@ export const relImg = style({
 export const baseContainer = style({
     "padding":"2rem 0"
 })
+

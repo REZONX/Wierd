@@ -1,3 +1,4 @@
+import { Pagination } from 'antd'
 import React from 'react'
 import { Link } from "react-router-dom"
 import Radios from "../../components/radios"

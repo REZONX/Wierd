@@ -65,6 +65,16 @@ interface InterfaceResponse<T = any> {
     }
 }
 
+interface PageInterfaceResponse<T = any> {
+    data:{
+        code:number
+        data:T
+        msg?:string
+        pageNum:number
+        pageSize:number
+        total:number
+    }
+} 
 export const post = <T>(url:string,data:any,config?:AxiosRequestConfig) =>
     axios.post<never,InterfaceResponse<T>>(url,data,config)
 
@@ -73,3 +83,6 @@ export const get = <T>(url:string,data?:any) =>
 
 export const put = <T>(url:string,data:any,config?:AxiosRequestConfig) => 
     axios.put<never,InterfaceResponse<T>>(url,data,config)
+
+export const pageGet = <T>(url:string,data?:any) =>
+    axios.get<never,PageInterfaceResponse<T>>(url,{params:data})
