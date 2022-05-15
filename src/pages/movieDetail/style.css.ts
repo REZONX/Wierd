@@ -160,3 +160,7 @@ export const iconContainer = style({
 export const container = style({
     position: "relative"
 })
+
+export const tabContainer = style({
+    padding:"4rem"
+})

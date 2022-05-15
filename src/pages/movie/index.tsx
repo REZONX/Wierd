@@ -15,6 +15,7 @@ import moment from 'moment'
 import Radios from '../../components/radios'
 import { movieRadios } from './config'
 import { useMovies } from '../../context/MoviesProvider'
+import { DateContainer } from './style.css'
 
 const {TabPane} = Tabs
 
@@ -22,9 +23,8 @@ export type Order = "releaseDate" | "movieScore"
 const MoviePage = () => {
     const [currentPage,setCurrentPage] = React.useState(1)
     const [currentPageSize,setCurrentPageSize] = React.useState(30)
-    const [startDate,setStartDate] = React.useState(moment().format("YYYY-MM-DD"))
-    // const [endDate,setEndDate] = React.useState(moment().add(1,"months").format("YYYY-MM-DD"))
-    const [endDate,setEndDate] = React.useState("")
+    const [startDate,setStartDate] = React.useState(moment().subtract('month',1).format("YYYY-MM-DD"))
+    const [endDate,setEndDate] = React.useState(moment().format("YYYY-MM-DD"))
     const [order,setOrder] = React.useState<Order>("releaseDate")
     const [isAsc,setIsAsc] = React.useState("desc")
     React.useState<MovieParams | null>(null)
@@ -34,7 +34,18 @@ const MoviePage = () => {
         age,
         area,
     } = useMovies()
-    const params:MovieParams = Object.assign({},{
+    const isVoid = (value:unknown)=>{
+        return value===undefined||value===null||value===''
+    }
+    
+    const filterObject = (obj:{[key in string]:unknown}) => {
+        const cloneObject = {...obj}
+        Object.keys(cloneObject).forEach(key=>{
+            if(isVoid(cloneObject[key])) delete cloneObject[key]
+        })
+        return cloneObject
+    }
+    const params = Object.assign({},filterObject({
         movieCategoryId:category,
         movieAgeId:age,
         movieAreaId:area,
@@ -44,7 +55,7 @@ const MoviePage = () => {
         startDate,
         endDate,
         isAsc,
-    })
+    }))
     const [data,setData] = React.useState<MovieInfo[]>(defaultMovieInfos)
     React.useEffect(()=>{
         if(params){
@@ -62,6 +73,20 @@ const MoviePage = () => {
         evt.preventDefault()
         setOrder(evt.target.value)
     }
+    const handleTabClick = (key:string) => {
+        if(key==='now'){
+            setStartDate(moment().subtract('month',1).format("YYYY-MM-DD"))
+            setEndDate(moment().format("YYYY-MM-DD"))
+        }
+        if(key==='will'){
+            setStartDate(moment().format('YYYY-MM-DD'))
+            setEndDate('')
+        }
+        if(key==='classic'){
+            setStartDate('')
+            setEndDate('')
+        }
+    }
     return (
         <div
             style={{
@@ -74,6 +99,20 @@ const MoviePage = () => {
                     title="movie"
                     color="red"
                 />
+                <div
+                    className={DateContainer}
+                >
+                    <Tabs
+                        defaultActiveKey='now'
+                        centered
+                        size='large'
+                        onTabClick={handleTabClick}
+                    >
+                        <Tabs.TabPane tab="正在热映" key={"now"}></Tabs.TabPane>
+                        <Tabs.TabPane tab="即将上映" key={'will'}></Tabs.TabPane>
+                        <Tabs.TabPane tab="经典影片" key={"classic"}></Tabs.TabPane>
+                    </Tabs>
+                </div>
                 <div
                     className={pagesContent}
                 >

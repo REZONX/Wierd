@@ -1,8 +1,8 @@
 import React from 'react'
 import moment from 'moment';
-import { btnsContainer, cinemaContainer, content, date, font, header, imgBG, imgContainer, li, mainContent, menuContainer, middle, mleft, number, type } from './style.css'
+import { actorsLi, btnsContainer, cinemaContainer, content, date, font, header, imgBG, imgContainer, li, mainContent, menuContainer, middle, mleft, number, tabContainer, type } from './style.css'
 import bg from '../../asset/bg.png'
-import { Button, Card, Col, Comment, Image, Rate, Row, Tooltip ,Avatar, message, Menu} from 'antd'
+import { Button, Card, Col, Comment, Image, Rate, Row, Tooltip ,Avatar, message, Menu, Tabs} from 'antd'
 import { bmb, MarginLeftAndRight, MarginTopAndBottom, PaddingLeftAndRight } from '../../public/style.css'
 import Works from '../../components/works';
 import MovieIntroduction from './MovieIntroduction'
@@ -20,6 +20,7 @@ import { fetchMovieInfo } from './net';
 import { parseImg } from '../../utils/parse';
 import Actors from './Actors';
 import Pictures from './Pictures';
+import { Link } from 'react-router-dom';
 interface MovieDetailProps {
 
 }
@@ -39,7 +40,38 @@ const MovieDetail = (props:MovieDetailProps) => {
         setCurrentMovie(params.movieId)
         navigate("/cinemas")
     }
-    const defaultValue = {} as MovieInfo
+    const defaultValue:MovieInfo = {
+        actorRoleList:[],
+        majorActorNameList:[],
+        movieAgeId:0,
+        movieAreaId:0,
+        movieBoxOffice:0,
+        movieCategoryList:[],
+        movieCommentList:[
+            {
+                movieId:0,
+                score:0,
+                userId:0,
+                sysUser:{
+                    userName:"",
+                    userPicture:"",
+                    userId:0,
+                },
+                commentTime:"",
+                content:"",
+            }
+        ],
+        movieLength:0,
+        movieIntroduction:"",
+        movieNameCn:"",
+        movieNameEn:"",
+        moviePoster:"",
+        movieRateNum:0,
+        movieScore:0,
+        releaseDate:"",
+        movieId:0,
+        moviePictures:"",
+    }
     const [data,setData] = React.useState<MovieInfo>(defaultValue)
     const [content,setContent] = React.useState<CurrentContent|string>("introduction")
     React.useEffect(()=>{
@@ -54,6 +86,9 @@ const MovieDetail = (props:MovieDetailProps) => {
 
     const clickPituresAll = () => {
         setContent("pictures")
+    }
+    const handleTabClick = () => {
+
     }
     return (
        <div>
@@ -77,37 +112,76 @@ const MovieDetail = (props:MovieDetailProps) => {
                         <div
                             className={menuContainer}
                         >
-                            <Menu
-                                onClick={(e)=>{
-                                    setContent(e.key)
-                                }}
-                                mode="horizontal"
-                                selectedKeys={["introduction"]}
-                                // items={menuItems}
+                            <Tabs
+                                defaultActiveKey='introduction'
+                                onTabClick={handleTabClick}
                             >
-                                <Menu.Item
-                                    key={"introduction"}
-                                >介绍</Menu.Item>
-                                <Menu.Item
-                                    key={"actors"}
-                                >演员</Menu.Item>
-                                <Menu.Item
-                                key={"pictures"}>图集</Menu.Item>
-                            </Menu>
+                                <Tabs.TabPane tab="介绍" key={"introduction"}>
+                                    <MovieIntroduction
+                                        name={"剧情介绍"}
+                                        content={data.movieIntroduction||""}
+                                    />
+                                    <Actors
+                                        actorRoleList={data.actorRoleList}
+                                        onClick={clickActorsAll}
+                                    />
+                                    <Pictures
+                                        onClick={clickPituresAll}
+                                    />
+                                    <UserComment
+                                        comments={data.movieCommentList}
+                                        movieId={`${data.movieId}`}
+                                    />
+                                </Tabs.TabPane>
+                                <Tabs.TabPane tab="演员" key={"actors"}>
+                                    <div
+                                        className={tabContainer}
+                                    >
+                                        {
+                                            data?.actorRoleList?.map(actorRole=>{
+                                                return (
+                                                    <ul>
+                                                        <div>
+                                                            {actorRole.actorRoleName}
+                                                        </div>
+                                                        {
+                                                            actorRole?.actorList?.map(actor=>{
+                                                                return (
+                                                                    <li
+                                                                        className={actorsLi}
+                                                                    >
+                                                                        <Link
+                                                                            to={`/actors/${actor?.actorId}`}
+                                                                        >
+                                                                        <Card
+                                                                            hoverable
+                                                                            style={{width:150}}
+                                                                            cover={<Image
+                                                                                preview={false}
+                                                                                width={150}
+                                                                                src={parseImg(actor.actorPhoto)}
+                                                                            />}
+                                                                        >
+                                                                            <Card.Meta
+                                                                                title={actor.actorName}
+                                                                            />
+                                                                        </Card>
+                                                                        </Link>
+                                                                    </li>
+                                                                )
+                                                            })
+                                                        }
+                                                    </ul>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </Tabs.TabPane>
+                                <Tabs.TabPane tab="图集" key={"pictures"}>
+                                    
+                                </Tabs.TabPane>
+                            </Tabs>
                         </div>
-                        <MovieIntroduction
-                            name={"剧情介绍"}
-                            content={data.movieIntroduction||""}
-                        />
-                        <Actors
-                            onClick={clickActorsAll}
-                        />
-                        <Pictures
-                            onClick={clickPituresAll}
-                        />
-                        <UserComment
-                            comments={data.movieCommentList||[]}
-                        />
                     </Main>
                     <Side>
                     </Side>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Seats } from '../types'
 import { IMovieContext, MovieContext } from './MovieContext'
 
 interface MovieProviderProps {
@@ -13,6 +14,7 @@ const MovieProvider = (props:MovieProviderProps) => {
     const [currentCinema,setCurrentCinema] = React.useState<Key>("")
     const [pay,setPay] = React.useState(false)
     const [show,setShow] = React.useState<Key>("")
+    const [seats,setSeats] = React.useState<Seats>({} as Seats)
     const context:IMovieContext = {
         currentMovie,
         currentCinema,
@@ -22,6 +24,8 @@ const MovieProvider = (props:MovieProviderProps) => {
         setPay,
         show,
         setShow,
+        seats,
+        setSeats,
     } 
     return (
         <MovieContext.Provider

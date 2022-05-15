@@ -4,6 +4,7 @@ import ModuleUI from '../Module/ModuleUI'
 import { number } from 'fp-ts'
 import { parseImg } from '../../utils/parse'
 import { MovieInfo } from '../../types'
+import { container } from './style.css'
 
 interface ShowListProps {
     handleChange:(page:number,pageSize:number)=>void
@@ -17,7 +18,9 @@ const ShowList = (props:ShowListProps) => {
         data
     } = props
     return (
-        <div>
+        <div
+            className={container}
+        >
             {
                 data.map(item => {
                     console.log(item.movieId)

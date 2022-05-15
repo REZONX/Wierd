@@ -26,7 +26,7 @@ const getCinemaInfo = `${baseUrl}/sysCinema/find`
 
 const searchMovie = `${baseUrl}/sysMovie`
 
-const searchActor = `${baseUrl}/sysActors`
+const searchActor = `${baseUrl}/sysActor`
 
 const searchCinema = `${baseUrl}/sysCinema`
 
@@ -39,6 +39,14 @@ const getActor = `${baseUrl}/sysActor/find`
 const getHot = `${baseUrl}/sysMovie/rankingList/4`
 
 const getNow = `${baseUrl}/sysMovie`
+
+const getBill = `${baseUrl}/sysBill`
+
+const putComment = `${baseUrl}/sysMovieComment`
+
+const register = `${baseUrl}/sysUser`
+
+const uploadImg = `${baseUrl}/upload/user`
 
 export default {
     baseUrl,
@@ -62,4 +70,8 @@ export default {
     getActors,
     getHot,
     getNow,
+    getBill,
+    putComment,
+    register,
+    uploadImg
 }

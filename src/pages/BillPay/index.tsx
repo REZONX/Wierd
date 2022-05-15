@@ -6,8 +6,12 @@ import React from 'react'
 import SiteSteps from '../../components/SiteStep'
 
 import { container, h } from './style.css'
-import { useNavigate } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { useMovie } from '../../context/MovieProvider'
+import { fetchBillInfo, PutBillInfo } from './net'
+import { BillInfo, putBillParams, Session } from '../../types'
+import { VideoCameraAddOutlined, TableOutlined,PayCircleOutlined,VerticalAlignTopOutlined} from '@ant-design/icons' 
+import { parsePickSeats, parseSeat } from '../../utils/parse'
 
 type ResultState = "success" | "warning"
 
@@ -16,18 +20,126 @@ interface BillPayProps {
 }
 const BillPay = (props:BillPayProps) => {
     const {} = props
+    const params:any = useParams()
     const navigate = useNavigate()
-    const {pay,setPay,setCurrentCinema,setCurrentMovie} = useMovie()
+    const {pay,setPay,setCurrentCinema,setCurrentMovie,seats} = useMovie()
+    console.log(seats)
     const [result,setResult] = React.useState<ResultState>("warning")
+    const defaultBillInfo:BillInfo = {
+        billDate:"",
+        billState:false,
+        billId:0,
+        seats:"",
+        sessionId:0,
+        sysSession:{
+            cinemaId:0,
+            hallId:0,
+            languageVersion:"",
+            movieId:0,
+            movieRuntimeId:0,
+            seatNums:0,
+            sessionDate:"",
+            sessionId:0,
+            sessionPrice:0,
+            sessionSeats:"",
+            sessionState:false,
+            sysHall:{
+                cinemaId:0,
+                hallCategoryId:0,
+                hallId:0,
+                hallName:"",
+                hallState:false,
+                rowNums:0,
+                rowStart:"",
+                seatNums:0,
+                seatNumsRow:0,
+                seatState:"",
+            },
+            sysMovieRuntime:{
+                beginTime:"",
+                endTime:"",
+                movieRuntimeId:0,
+                movieRuntimeName:"",
+            },
+            sysMovie:{
+                actorRoleList:[],
+                majorActorNameList:[],
+                movieAgeId:0,
+                movieAreaId:0,
+                movieBoxOffice:0,
+                movieCategoryList:[],
+                movieCommentList:[],
+                movieLength:0,
+                movieIntroduction:"",
+                movieNameCn:"",
+                movieNameEn:"",
+                moviePoster:"",
+                movieRateNum:0,
+                movieScore:0,
+                releaseDate:"",
+                movieId:0,
+                moviePictures:"",
+            },
+            sysCinema:{
+                cinemaName:"",
+                cinemaId:0,
+                cinemaAddress:"",
+                cinemaAreaId:0,
+                cinemaBrandId:0,
+                cinemaPicture:"",
+                isRefunded:false,
+                isTicketChanged:false,
+                sysHallCategoryList:[],
+            },
+        },
+        sysUser:{
+            userId:0,
+            userName:"",
+            userPicture:"",
+        },
+        userId:0,
+    }
+    const [billInfo,setBillInfo] = React.useState<BillInfo>(defaultBillInfo)
     const handleFinish = () => {
         message.error("未完成操作")
         setCurrentCinema("")
         setCurrentMovie("")
         navigate("/")
     }
+    React.useEffect(()=>{
+        fetchBillInfo(params.billId).then(res=>{
+            setBillInfo(res)
+        })
+    },[params.billId])
+    
+    // Object.keys(seats).map(row=>{
+    //     seats[row].map((seat,index)=>{
+    //         if(seat === 2){
+    //             return {
+    //                 ...seats,
+    //                 seats[row]:[...seats[row]]
+    //             }
+    //         }
+    //     })
+    // })
+    console.log(seats)
+    const billParams:putBillParams = {
+        sessionSeats:JSON.stringify(seats),
+        sysBill:{
+            billDate:billInfo.billDate,
+            billId:billInfo.billId,
+            billState:billInfo.billState,
+            sessionId:billInfo.sessionId,
+            seats:billInfo.seats
+        },
+        sysSession:billInfo.sysSession,
+        sysUser:billInfo.sysUser
+    }
     const handleClick = () => {
+        PutBillInfo(billParams)
         setPay(true)
         setResult("success")
+        navigate("/")
         //TODO调用接口
         message.success("支付成功，请在订单信息中查询")
     }
@@ -35,21 +147,60 @@ const BillPay = (props:BillPayProps) => {
     const colunms = [
         {
             title:"影片",
-            dataIndex:"movieName",
+            dataIndex:"sysSession",
+            render:(sysSession:Session)=>{
+                return (
+                    <div>
+                        {
+                            sysSession.sysMovie.movieNameCn
+                        }
+                    </div>
+                )
+            }
         },
         {
             title:"时间",
-            dataIndex:"time",
+            dataIndex:"billDate",
+            render:(billDate:string) =>{
+                return (
+                    <div>
+                        {billDate}
+                    </div>
+                )
+            }
         },
         {
             title:"影院",
-            dataIndex:"cinema"
+            dataIndex:"sysSession",
+            render:(sysSession:Session)=>{
+                return (
+                    <div>
+                        {sysSession.sysCinema.cinemaAddress}
+                    </div>
+                )
+            }
         },
         {
             title:"座位",
-            dataIndex:"cinema"
+            dataIndex:"seats",
+            render:(seats:string)=>{
+                return (
+                    <React.Fragment>
+                        {
+                            parsePickSeats(billInfo.seats).map(seat=>{
+                                return (
+                                    <span>
+                                        {seat}
+                                    </span>
+                                )
+                            })
+                        }
+                    </React.Fragment>
+                )
+            }
         }
     ]
+    let source = [billInfo]
     return (
         <div
             className={container}
@@ -58,16 +209,20 @@ const BillPay = (props:BillPayProps) => {
                 current={2}
                 stepsProps={[
                     {
-                        title:"选择影片场次"
+                        title:"选择影片场次",
+                        incon:<VideoCameraAddOutlined />,
                     },
                     {
-                        title:"选择座位"
+                        title:"选择座位",
+                        incon:<TableOutlined />,
                     },
                     {
-                        title:"15分钟内付款"
+                        title:"15分钟内付款",
+                        incon:<PayCircleOutlined />,
                     },
                     {
-                        title:"影院获取观影票"
+                        title:"影院获取观影票",
+                        incon:<VerticalAlignTopOutlined />,
                     },
                 ]}
             />
@@ -108,21 +263,21 @@ const BillPay = (props:BillPayProps) => {
                 <div>
                     订单编号为
                     <span>
-                        {10}
+                        {billInfo.billId}
                     </span>
+                    <Table
+                        columns={colunms}
+                        dataSource={source}
+                    />
                 </div>
-                <Table
-                    columns={colunms}
-                />
             </div>
             <div>
                 <Row>
                     <Col
                         flex={4}
                     >
-                    <h2>万达影院(经开万达广场店)</h2>
-                    <div>地址荆州区经济技术开发区辽河西路117号万达广场四楼</div>
-                    <div>电话:13111212312</div>
+                        <h2>{billInfo.sysSession.sysCinema.cinemaName}</h2>
+                        <div>{billInfo.sysSession.sysCinema.cinemaAddress}</div>
                     </Col>
                     <Col
                         flex={1}

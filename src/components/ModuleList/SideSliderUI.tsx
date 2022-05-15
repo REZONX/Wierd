@@ -31,15 +31,12 @@ const SideSliderUI = (props:SideSliderUIProps) => {
                         charts.map((item,index)=>{
                             return (
                                 <div>
-                                    <Link
-                                        to={`movies/${item.movieId}`}
-                                    >
-                                        <SideModule
-                                            num={index+1}
-                                            movieName = {item.movieNameCn}
-                                            movieDesc = {item.movieIntroduction.substring(0,13)+"..."}
-                                        />
-                                    </Link>
+                                    <SideModule
+                                        movieId={item.movieId}
+                                        num={index+1}
+                                        movieName = {item.movieNameCn}
+                                        movieDesc = {item.movieIntroduction.substring(0,13)+"..."}
+                                    />
                                 </div>
                             )
                         })
@@ -59,6 +56,7 @@ export interface SideModuleProps {
     num?:number,
     movieName?:string,
     movieDesc?:string,
+    movieId:number
 
 }
 export const SideModule = (props:SideModuleProps) => {
@@ -76,16 +74,20 @@ export const SideModule = (props:SideModuleProps) => {
                 </span>
             </div>
             <div className={SideDetailContainer}>
-                <h2
-                    className={SideMovieName}
+                <Link
+                    to={`movies/${props.movieId}`}
                 >
-                    {props.movieName}
-                </h2>
-                <p
-                    className={SideMovieDesc}
-                >
-                    {props.movieDesc}
-                </p>
+                    <h2
+                        className={SideMovieName}
+                    >
+                        {props.movieName}
+                    </h2>
+                    <p
+                        className={SideMovieDesc}
+                    >
+                        {props.movieDesc}
+                    </p>
+                </Link>
             </div>
         </div>
     )

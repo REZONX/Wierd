@@ -1,26 +1,66 @@
 import { Col, Row ,Image} from 'antd'
 import React from 'react'
 import { content, money, payInfoHeader, state } from './style.css'
+import { useAuth } from '../../context/AuthProvider'
+import { fetchBillPay } from './net'
+import { BillInfo } from '../../types'
+import { parseImg } from '../../utils/parse'
 
 interface PayInfoProps {
 
 }
 const PayInfo = (props:PayInfoProps) => {
     const {} = props
+    const {
+        user
+    } = useAuth()
+    const [bills,setBills]  =React.useState<BillInfo[]>([] as BillInfo[])
+    React.useEffect(()=>{
+        fetchBillPay(user.sysUser.userId).then(res=>{
+            setBills(res)
+        })
+    },[])
     return (
         <div>
-            <Line/>
+            {
+                bills.map(item=>{
+                    return (
+                        <Line
+                            billDate={item.billDate}
+                            billId={item.billId}
+                            movieName={item.sysSession.sysMovie.movieNameCn}
+                            cinemaName={item.sysSession.sysCinema.cinemaName}
+                            moviePoster={parseImg(item.sysSession.sysMovie.moviePoster)}
+                        />
+                    )
+                })
+            }
         </div>
     )
 }
 
-const Line = () => {
+interface LineProps {
+    billDate:string,
+    billId:number,
+    movieName:string,
+    moviePoster:string,
+    cinemaName:string,
+    // price:string,
+}
+const Line = (props:LineProps) => {
+    const {
+        billDate,
+        billId,
+        movieName,
+        cinemaName,
+        moviePoster,
+    } = props
     return (
         <div>
             <header
                 className={payInfoHeader}
             >
-                2020 11-30 16:44:02 <span>狗眼订单号为{}</span>
+                {billDate} <span>狗眼订单号为{billId}</span>
             </header>
             <div className={content}>
                 <Row>
@@ -38,7 +78,7 @@ const Line = () => {
                                 <Image
                                     width={100}
                                     preview={false}
-                                    src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp" 
+                                    src={moviePoster} 
                                 />
                             </div>
                             <div
@@ -47,16 +87,13 @@ const Line = () => {
                                 }}
                             >
                                 <h1>
-                                    送你一朵小红花
+                                    {movieName}
                                 </h1>
                                 <div>
-                                    万达影城（金开万达广场店）
+                                    {cinemaName}
                                 </div>
                                 <div>
-                                    激光厅1号激光厅
-                                </div>
-                                <div>
-                                    2022年12月25日 12:00
+                                    {billDate}
                                 </div>
                             </div>
                         </div>

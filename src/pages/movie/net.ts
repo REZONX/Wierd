@@ -14,7 +14,7 @@ export interface MovieParams {
     endDate:string
     isAsc:string
 }
-export const fetchMovieList = async (params:MovieParams) => {
+export const fetchMovieList = async (params:object) => {
     const {data} = await get<Array<MovieInfo>>(actions.getMovieList,params)
     if(data.code === 200){
         return data.data

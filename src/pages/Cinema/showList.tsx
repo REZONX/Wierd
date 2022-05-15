@@ -2,6 +2,7 @@ import { Button, List, Table, Tag } from 'antd'
 import React from 'react'
 import { useNavigate } from 'react-router'
 import { useCinemas } from '../../context/CinemasProvider'
+import { useMovie } from '../../context/MovieProvider'
 import { CinemaInfo, HallCategoryProps } from '../../types'
 import { fetchCinemaList } from './net'
 import { cinemaAdd, cinemaName, itemContainer, itemContent, tagsContainer } from './style.css'
@@ -63,7 +64,7 @@ const ListItem = (props:ListItemProps) => {
         tags,
         isRefund,
         isTicketChanged,
-        cinemaId
+        cinemaId,
     } = props
     const navigate = useNavigate()
     return (

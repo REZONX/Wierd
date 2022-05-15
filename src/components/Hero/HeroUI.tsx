@@ -1,6 +1,10 @@
-import { Carousel } from "antd"
+import { Carousel, Image } from "antd"
 import HeroModuleUI from "./HeroModuleUI"
 import { HeroBackground, HeroContainer, HeroContent, HeroContentBg, HeroContentLeft, HeroContentRight, HeroModulesTitle, HeroModulesTitleBg} from "./style.css"
+import carousel1 from '../../asset/carousel1.jpg'
+import carousel2 from '../../asset/carousel2.jpg'
+import carousel3 from '../../asset/carousel3.jpg'
+import carousel4 from '../../asset/carousel4.jpg'
 
 export interface HeroUIProps {
 
@@ -14,16 +18,7 @@ const HeroUI = (props:HeroUIProps) => {
                 <div
                     className={HeroContentBg}
                 >
-                    <div className={HeroContentLeft}>
-                        
-                            {/* Video Component */}
-                            <Carousel
-                                autoplay
-                            >
-                                
-                            </Carousel>
-                    </div>
-                    <div className={HeroContentRight}>
+                    {/* <div className={HeroContentRight}>
                         <div
                             className={HeroModulesTitle}
                         >
@@ -46,7 +41,7 @@ const HeroUI = (props:HeroUIProps) => {
                             }
                             
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 

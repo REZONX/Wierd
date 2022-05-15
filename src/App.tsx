@@ -29,6 +29,7 @@ import 'antd/lib/result/style'
 import 'antd/lib/layout/style'
 import 'antd/lib/slider/style'
 import 'antd/lib/menu/style'
+import 'antd/lib/carousel/style'
 // import 'antd/lib/layout/style'
 // import 'antd/lib/slider/style'
 
@@ -61,16 +62,17 @@ const App:FC = () => {
         />
         <Routes>
           <Route element={<MainPage/>} path={'/'}/>
+          {/* <Route index element={<LoginPage/>}/> */}
+          <Route element = {<LoginPage/> } path={'/login'}/>
           <Route element={<MoviePage/> } path={"/movies"}/>
           <Route element={<MovieDetail/>} path={"/movies/:movieId"}/>
           <Route element = {<CinemaUI/>} path = {'/cinemas'}/>
           <Route element={<CinemaDetail/>} path={"/cinemas/:cinemaId"}/>
           <Route element = {<ListsUI/>} path = {'/lists'}/>
-          <Route element = {<LoginPage/> } path={'/login'}/>
           <Route element = {<RegisterPage/> } path={'/register'}/>
-          <Route element={<ChooseSeat/>} path={'/choose-seat:sessionId'}/>
+          <Route element={<ChooseSeat/>} path={'/choose-seat/:sessionId'}/>
           <Route element={<ActorDetail/>} path={'/actors/:actorId'}/>
-          <Route element={<BillPay/>} path={'/bill-pay'}/>
+          <Route element={<BillPay/>} path={'/bill-pay/:billId'}/>
           <Route element={<User/>} path={'/user'}>
             <Route
                 path='user-info'

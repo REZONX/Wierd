@@ -7,8 +7,8 @@ const RegisterPage = () => {
     const {
         login
     } = useAuth()
-    const handleLogin = (value:LoginData) => {
-        login(value)
+    const handleRegister = () => {
+        
     }
     return (
         <div
@@ -18,7 +18,7 @@ const RegisterPage = () => {
                 className={FormCardS}
             >
                 <RegisterForm
-                    handleSubmit={handleLogin}
+                    handleSubmit={handleRegister}
                 />
             </Card>
         </div>

@@ -51,7 +51,6 @@ const AuthProvider = (props:AuthProviderProps) => {
     
     const login = async (loginData:LoginData) => {
         let {data} = await post<User>(action.login,loginData)
-        console.log(data.data)
         if(data.code === 200){
             saveToken(data.data)
             setUser(data.data)

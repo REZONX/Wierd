@@ -11,7 +11,12 @@ import { fetchMovieList } from '../movie/net'
 import { fetchHot, fetchNow } from './net'
 import SiteHeaderUI, { SiteMainNavigatorUI } from "./SiteHeaderUI"
 import { HomeStyle, SiteMainHeaderStyle} from "./styles.css"
+import carousel1 from '../../asset/carousel1.jpg'
+import carousel2 from '../../asset/carousel2.jpg'
+import carousel3 from '../../asset/carousel3.jpg'
+import carousel4 from '../../asset/carousel4.jpg'
 import moment from 'moment'
+import { Carousel, Image } from 'antd'
 
 export const A = () => {
     return (
@@ -46,52 +51,49 @@ export const HomeUI = () => {
     },[])
     console.log(now)
     return <div className={HomeStyle}>
-        {/* <ModuleUI
-          movieImg="https://tse1-mm.cn.bing.net/th/id/OIP-C.jfrG_XRPBS24z7Bi9dEJmAHaJ4?pid=ImgDet&rs=1"
-          movieLink="Alice"
-          movieName="Alice in Wanderland"
-        /> */}
-        <SiteOver>
-          {/* <header
-              className = {SiteMainHeaderStyle['large']}
-          >
-            <Logo/>
-            <SiteMainNavigatorUI
-                  navStyle="large"
-                  navLink={
-                      [
-                          {
-                            path:'movies',
-                            content:'movies',
-                          },
-                          {
-                            path:'cinema',
-                            content:'cinema',
-                          },
-                          {
-                            path:'lists',
-                            content:'lists',
-                          },
-                          {
-                            path:'videos',
-                            content:'videos'
-                          }
-                        ]
-                  }
-                  otherElement = {
-                      <A/>
-                  }
-            />
-
-          </header> */}
-          <HeroUI/>
-          <ModuleListUI
-            moduleListName='正在热映'
-            moduleListNameDesc='为您提供正在热映的电影信息'
-            sideSource={hot}
-            source={now}
-          />
-        </SiteOver>
-        <SiteFooter/>
-    </div>
+            <SiteOver>
+            <div
+              className={FluidContainerStyle}
+            >
+              <Carousel autoplay>
+                  <div>
+                  <Image
+                      width={"100%"}
+                      preview={false}
+                      src={carousel1}
+                  />
+                  </div>
+                  <div>
+                  <Image
+                      width={"100%"}
+                      preview={false}
+                      src={carousel2}
+                  />
+                  </div>
+                  <div>
+                  <Image
+                      width={"100%"}
+                      preview={false}
+                      src={carousel3}
+                  />
+                  </div>
+                  <div>
+                  <Image
+                      width={"100%"}
+                      preview={false}
+                      src={carousel4}
+                  />
+                  </div>
+              </Carousel>
+            </div>
+              {/* <HeroUI/> */}
+              <ModuleListUI
+                moduleListName='正在热映'
+                moduleListNameDesc='为您提供正在热映的电影信息'
+                sideSource={hot}
+                source={now}
+              />
+            </SiteOver>
+            <SiteFooter/>
+        </div>
 }

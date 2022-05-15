@@ -1,4 +1,5 @@
 import { useLocation } from "react-router"
+import { MovieParams } from "../pages/movie/net"
 
 export const useThrottle = (time:number,callback:Function) => {
     let timeout:NodeJS.Timeout | undefined = undefined

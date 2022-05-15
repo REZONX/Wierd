@@ -1,5 +1,6 @@
 import React from 'react'
 import { Key } from '../components/tabs/types'
+import { Seats } from '../types'
 
 export interface IMovieContext {
     currentMovie:Key
@@ -10,5 +11,7 @@ export interface IMovieContext {
     setPay:(pay:boolean) => void
     show:Key,
     setShow:(show:Key) => void
+    seats:Seats
+    setSeats:(seats:Seats)=>void
 }
 export const MovieContext = React.createContext<IMovieContext | null>(null)

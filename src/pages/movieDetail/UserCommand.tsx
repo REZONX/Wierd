@@ -5,8 +5,10 @@ import Title from '../../components/title'
 import 'antd/lib/modal/style'
 import { post } from '../../network/server/request'
 import { useForm } from 'rc-field-form'
-import { CommentInfo } from '../../types'
+import { CommentInfo, CommentParams } from '../../types'
 import { parseImg } from '../../utils/parse'
+import { putCommentInfo } from './net'
+import { useAuth } from '../../context/AuthProvider'
 
 interface ICommentForm {
     score:number,
@@ -15,33 +17,38 @@ interface ICommentForm {
 
 interface UserCommentProps {
     comments:Array<CommentInfo>
+    movieId:string
 }
 const UserComment = (props:UserCommentProps) => {
     const {
-        comments
+        comments,
+        movieId,
     } = props
     const [visible,setVisible] = React.useState(false)
     React.useEffect(()=>{
 
     },[])
-    const [form] = useForm()
     let initalValues = {
         score:0,
-        comment:""
+        content:""
     }
+    const {user} = useAuth()
+    const [commentInfo,setCommentInfo] = React.useState(initalValues)
+
+    const [form] = Form.useForm()
     form.setFieldsValue(initalValues)
-    console.log(form.getFieldValue('score'))
+    
     const handleOk = (e:React.MouseEvent<HTMLElement, MouseEvent>) => {
-        form.validateFields()
-        .then(values => {
-            console.log(values)
-            form.resetFields(values)
-            post("url",values)
-            message.success("评论成功")
-        })
-        .catch(err =>{
-            message.error(err)
-        })
+        let score = form.getFieldValue('score')
+        let content = form.getFieldValue('content')
+        let params:CommentParams = {
+            score,
+            content,
+            userId:user.sysUser.userId as number,
+            commentTime:moment().format("YYYY-MM-DD hh:mm:ss"),
+            movieId,
+        }
+        putCommentInfo(params)
         setVisible(false)
     }
     const handleClick = () =>{
@@ -51,6 +58,7 @@ const UserComment = (props:UserCommentProps) => {
     const onCancel = () => {
         setVisible(false)
     }
+
 
     return (
         <div
@@ -81,8 +89,8 @@ const UserComment = (props:UserCommentProps) => {
                 getContainer={false}
             >
             <Form
-                // form={form}
-                    // onFinish={onFinish}
+                initialValues={initalValues}
+                form={form}
             >
                 
                     <Form.Item
@@ -95,7 +103,7 @@ const UserComment = (props:UserCommentProps) => {
                         />
                     </Form.Item>
                 <Form.Item
-                    name={"comment"}
+                    name={"content"}
                 >
                     <Input.TextArea
                         rows={4}
@@ -106,11 +114,10 @@ const UserComment = (props:UserCommentProps) => {
             <div>
                 {
                     comments.map(item=>{
-                        console.log(parseImg(item.sysUser.userPicture))
                         return (
                             <Comment
-                                author={<div>{item.sysUser.userName}</div>}
-                                avatar={<Avatar src={parseImg(item.sysUser.userPicture)}/>}
+                                author={<div>{item.sysUser?.userName}</div>}
+                                avatar={<Avatar src={parseImg(item.sysUser?.userPicture)}/>}
                                 content={
                                     <p>
                                         {item.content}

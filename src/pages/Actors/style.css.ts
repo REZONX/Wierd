@@ -22,3 +22,7 @@ export const relImg = style({
     padding: "1rem",
     display: "inline-block",
 })
+
+export const baseContainer = style({
+    "padding":"2rem 0"
+})

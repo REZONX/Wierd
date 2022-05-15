@@ -1,9 +1,10 @@
 import 'antd/lib/form/style'
 import 'antd/lib/input/style'
-import { Button, Form, Input ,Checkbox} from "antd"
+import { Button, Form, Input ,Checkbox, Radio} from "antd"
 import { Link } from "react-router-dom"
 import { RegisterLink } from './style.css'
 import { useForm } from 'antd/lib/form/Form'
+import { postRegister } from './net'
 
 interface RegisterFormProps {
     handleSubmit?:(value:any) => void
@@ -11,14 +12,32 @@ interface RegisterFormProps {
 }
 const RegisterForm = (props:RegisterFormProps) => {
     const {
-        handleSubmit,
         loading,
     } = props
    const [form] =  useForm()
+   const initialValues = {
+       'userName':"",
+       "password":"",
+       "confirmPassword":"",
+        "sex":true
+   }
+    const handleSubmit = () => {
+        const userName = form.getFieldValue('userName')
+        const password = form.getFieldValue('password')
+        const confirmPassword = form.getFieldValue('confirmPassword')
+        const sex = form.getFieldValue('sex')
+        postRegister({
+            userName,
+            password,
+            confirmPassword,
+            sex,
+        })
+    }
     return (
         <Form
-            onFinish={handleSubmit}
+            onFinish={handleSubmit} 
             form={form}
+            initialValues={initialValues}
         >
             <h1
                 style={{
@@ -29,7 +48,7 @@ const RegisterForm = (props:RegisterFormProps) => {
             <Form.Item
                 label={"用户名"}
                 labelAlign={"right"}
-                name={"username"}
+                name={"userName"}
                 rules={[
                     {
                         required:true,
@@ -68,7 +87,7 @@ const RegisterForm = (props:RegisterFormProps) => {
             </Form.Item>
             <Form.Item
                 label={"确认密码"}
-                name={"passwordComfirm"} //由name属性来推断字段名
+                name={"confirmPassword"} //由name属性来推断字段名
                 labelCol={{span:5}}
                 dependencies={['password']}
                 rules={[
@@ -97,6 +116,19 @@ const RegisterForm = (props:RegisterFormProps) => {
                     placeholder={"请输入密码"}
                     maxLength={18}
                 />
+            </Form.Item>
+            <Form.Item
+                label="性别"
+                name={"sex"}
+            >
+                <Radio.Group>
+                    <Radio
+                        value={true}
+                    >男</Radio>
+                    <Radio
+                        value={false}
+                    >女</Radio>
+                </Radio.Group>
             </Form.Item>
             <Form.Item>
                 <Button

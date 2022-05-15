@@ -9,6 +9,7 @@ import { useForm } from 'antd/lib/form/Form'
 import { useAuth } from '../../context/AuthProvider'
 import { parseImg,parse } from '../../utils/parse'
 import moment from 'moment'
+import actions from '../../actions'
 
 interface UserInfoProps {
 
@@ -23,13 +24,17 @@ const UserInfo = (props:UserInfoProps) => {
             information
         }
     }} = useAuth()
-    console.log(parse(information).birthday)
     const [form] = useForm()
-    form.setFieldsValue({
+    const initialValue = {
         "username":userName,
-        "sex":sex,
-        "birth":parse(information).birthday
-    })
+        "sex":sex||true,
+        "birth":moment(parse(information)?.birthday)||moment()
+    } 
+    // form.setFieldsValue({
+    //     "username":userName,
+    //     "sex":sex||true,
+    //     "birth":parse(information).birthday||moment().format("YYYY-MM-DD")
+    // })
     
     const [fileList,setFileList] = React.useState([])
 
@@ -59,8 +64,7 @@ const UserInfo = (props:UserInfoProps) => {
         setFileList(file.fileList)
       }
     const fileProps:UploadProps = {
-        action:parseImg(userPicture),
-        name:'avatar',
+        action:actions.uploadImg,
         listType:"picture-card",
         maxCount:1,
         defaultFileList:fileList,
@@ -82,6 +86,7 @@ const UserInfo = (props:UserInfoProps) => {
             }}
         >
             <Form
+                initialValues={initialValue}
                 form={form}
             >
                 <Form.Item
@@ -124,11 +129,9 @@ const UserInfo = (props:UserInfoProps) => {
                     label="生日"
                     name={"birth"}
                 >
-                    <Space>
-                        <DatePicker
-                            defaultValue={moment(parse(information).birthday, 'YYYY-MM-DD')}
-                        />
-                    </Space>
+                    <DatePicker
+                        // defaultValue={moment(parse(information).birthday, 'YYYY-MM-DD')}
+                    />
                 </Form.Item>
                 <Form.Item>
                     <Button

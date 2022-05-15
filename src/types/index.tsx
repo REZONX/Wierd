@@ -5,8 +5,15 @@ export interface Category {
     movieCategoryName:string
 } 
 
+
+export interface ActorRoleList {
+    actorRoleId:number
+    actorRoleName:string
+    actorList:ActorInfo[]
+}
+
 export interface MovieInfo {
-    actorRoleList:Array<any>
+    actorRoleList:Array<ActorRoleList>
     majorActorNameList:Array<string>
     movieAgeId:number
     movieAreaId:number
@@ -18,6 +25,7 @@ export interface MovieInfo {
     movieNameCn:string
     movieNameEn:string
     moviePoster:string
+    moviePictures:string
     movieRateNum:number
     movieScore:number
     releaseDate:string
@@ -64,7 +72,6 @@ export interface CommentInfo {
     movieId:number
     userId:number
     commentTime:string
-    userName:string
     content:string
     score:number
     sysUser:SysUser
@@ -116,6 +123,8 @@ export interface Session {
     sessionState:boolean
     sysHall:SysHall
     sysMovieRuntime:SysMovieRuntime
+    sysMovie:MovieInfo,
+    sysCinema:CinemaInfo,
 }
 
 export interface ICinemaDetail {
@@ -140,4 +149,57 @@ export interface ActorInfo {
 
 export type AgeMoviesProps = {
     [key in string]:Array<MovieInfo>
+}
+
+export type Seats = {
+    [key in string]:Array<number>
+}
+
+export interface BillProps {
+    billId:number,
+    userId:number
+    sessionId:number
+    seats:string
+}
+
+export interface BillInfo {
+    billDate:string
+    billState:boolean
+    billId:number
+    seats:string
+    sessionId:number
+    sysSession:Session,
+    sysUser:SysUser,
+    userId:number,
+}
+
+export interface SysBill {
+    billDate:string
+    billState:boolean
+    billId:number
+    seats:string
+    sessionId:number
+}
+
+export interface putBillParams {
+    sysBill:SysBill
+    sessionSeats:string
+    sysSession:Session
+    sysUser:SysUser
+}
+
+export interface CommentParams {
+    commentTime:string
+    content:string
+    movieId:string
+    score:number
+    userId:number
+}
+
+export interface UserInfo {
+    autograph:string
+    birthday:string
+    condition:string
+    hobbies:number[]
+    job:number[]
 }

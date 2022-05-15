@@ -5,7 +5,9 @@ import { Layout, Menu} from 'antd'
 import Sider from 'antd/lib/layout/Sider'
 import UserInfo from './UserInfo'
 import { infoContainer } from './style.css'
+
 const User = () => {
+
     return (
         <div
             style={{

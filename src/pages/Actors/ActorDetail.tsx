@@ -95,6 +95,7 @@ const ActorDetail = (props:DetailProps) => {
                 <Main>
                     <ActorBase
                         content={actorInformation}
+                        info={actorInfo}
                     />
                     <Works
                         agesList={agesList}

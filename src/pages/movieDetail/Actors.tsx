@@ -1,15 +1,19 @@
 import React from 'react'
 import Title from '../../components/title'
-import {Image} from 'antd'
+import {Card, Image} from 'antd'
 import {Link} from 'react-router-dom'
 import { actorsContainer, actorsLi, actorsUl, container, iconContainer } from './style.css'
 import IconButton from '../../components/Button'
+import { ActorRoleList } from '../../types'
+import { parseImg } from '../../utils/parse'
 interface ActorsProps {
+    actorRoleList:ActorRoleList[]
     onClick:()=>void
 }
 const Actors = (props:ActorsProps) => {
     const {
-        onClick
+        onClick,
+        actorRoleList
     } = props
     return (
         <div
@@ -28,81 +32,44 @@ const Actors = (props:ActorsProps) => {
             <div
                 className={actorsContainer}
             >
-                <ul
-                    className={actorsUl}
-                >
-                    <div>导演</div>
-                    <li
-                        className={actorsLi}
-                    >
-                        <Link
-                            to={""}
+               {
+                   actorRoleList.slice(0,2).map(actorRole=>{
+                       return (
+                        <ul
+                            className={actorsUl}
                         >
-                            <Image
-                                preview={false}
-                                width={120}
-                                src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
-                            />
-                        </Link>
-                    </li>
-                </ul>
-                <ul
-                    className={actorsUl}
-                >
-                    <div>演员</div>
-                    <li
-                        className={actorsLi}
-                    >
-                        <Link
-                            to={""}
-                        >
-                            <Image
-                                preview={false}
-                                width={120}
-                                src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
-                            />
-                        </Link>
-                    </li>
-                    <li
-                        className={actorsLi}
-                    >
-                        <Link
-                            to={""}
-                        >
-                            <Image
-                                preview={false}
-                                width={120}
-                                src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
-                            />
-                        </Link>
-                    </li>
-                    <li
-                        className={actorsLi}
-                    >
-                        <Link
-                            to={""}
-                        >
-                            <Image
-                                preview={false}
-                                width={120}
-                                src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
-                            />
-                        </Link>
-                    </li>
-                    <li
-                        className={actorsLi}
-                    >
-                        <Link
-                            to={""}
-                        >
-                            <Image
-                                preview={false}
-                                width={120}
-                                src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
-                            />
-                        </Link>
-                    </li>
-                </ul>
+                            <div>{actorRole?.actorRoleName}</div>
+                            {
+                                actorRole?.actorList.slice(0,4).map(actor=>{
+                                    return (
+                                        <li
+                                            className={actorsLi}
+                                        >
+                                            <Link
+                                                to={`/actors/${actor?.actorId}`}
+                                            >
+                                                <Card
+                                                    cover={
+                                                        <Image
+                                                            preview={false}
+                                                            width={120}
+                                                            src={parseImg(actor?.actorPhoto)}
+                                                        />
+                                                    }
+                                                >
+                                                    <Card.Meta
+                                                        title={actor?.actorName}
+                                                    />
+                                                </Card>
+                                            </Link>
+                                        </li>
+                                    )
+                                })
+                            }
+                        </ul>
+                       )
+                   })
+               }
             </div>
         </div>
     )
