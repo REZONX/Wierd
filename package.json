@@ -31,6 +31,7 @@
     "graphql-tag": "^2.12.6",
     "history": "^5.2.0",
     "less-loader": "^10.2.0",
+    "lodash": "^4.17.21",
     "moment": "^2.29.2",
     "react": "^17.0.2",
     "react-app-rewired": "^2.2.1",
@@ -64,5 +65,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.182"
   }
 }

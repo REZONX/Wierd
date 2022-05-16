@@ -60,6 +60,51 @@ export const sessionDateActive = style({
 export const sectionContainer = style({
     margin: "4rem 0"
 })
+
+export const detailTitle = style({
+        color:"#999"
+})
+
+export const movieName = style({
+    fontSize:"2rem",
+    display: "inline-block",
+    marginRight: "2rem",
+    fontWeight:"700"
+})
+
+export const movieScore = style({
+    display: "inline-block",
+    margin: "2rem",
+    color:"#f9ca24"
+})
+
+export const itemContainer = style({
+    display: "inline-block",
+    marginRight: "2rem"
+})
+
+export const itemContent = style({
+    fontWeight:"600",
+    letterSpacing:"2px"
+})
+
+export const beginTime = style({
+    fontSize:"2rem",
+    fontWeight:"700"
+})
+
+export const endTime = style({
+    color:"#999"
+})
+export const priceS = style({
+    color:"#c0392b",
+    fontSize:"2rem",
+    fontWeight:"700",
+    "::after":{
+        content: "\\FFE5",
+        fontSize: "12px",
+    }
+})
 // export const moviePosterContainer = style({
 //     padding: ".5rem",
 //     background: "#fff",

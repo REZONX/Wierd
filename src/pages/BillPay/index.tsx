@@ -3,13 +3,14 @@ import moment from 'moment'
 import Countdown from 'antd/lib/statistic/Countdown'
 import 'antd/lib/statistic/style'
 import React from 'react'
+import {cloneDeep} from 'lodash'
 import SiteSteps from '../../components/SiteStep'
 
 import { container, h } from './style.css'
 import { useNavigate, useParams } from 'react-router'
 import { useMovie } from '../../context/MovieProvider'
 import { fetchBillInfo, PutBillInfo } from './net'
-import { BillInfo, putBillParams, Session } from '../../types'
+import { BillInfo, putBillParams, Seats, Session } from '../../types'
 import { VideoCameraAddOutlined, TableOutlined,PayCircleOutlined,VerticalAlignTopOutlined} from '@ant-design/icons' 
 import { parsePickSeats, parseSeat } from '../../utils/parse'
 
@@ -22,8 +23,7 @@ const BillPay = (props:BillPayProps) => {
     const {} = props
     const params:any = useParams()
     const navigate = useNavigate()
-    const {pay,setPay,setCurrentCinema,setCurrentMovie,seats} = useMovie()
-    console.log(seats)
+    const {pay,setPay,setCurrentCinema,setCurrentMovie,seats,setSeats} = useMovie()
     const [result,setResult] = React.useState<ResultState>("warning")
     const defaultBillInfo:BillInfo = {
         billDate:"",
@@ -123,12 +123,34 @@ const BillPay = (props:BillPayProps) => {
     //     })
     // })
     console.log(seats)
+    const getSeats = (seats:string[]) => {
+        let seatInfos:Array<Array<string>> = []
+        seats?.forEach(seat=>{
+            const reg = /[\u4e00-\u9fa5]/g
+            let seatInfo = seat?.replace(reg,",")?.split(",")
+            let filterSeatInfo = seatInfo?.slice(0,seatInfo.length-1)
+            seatInfos.push(filterSeatInfo)
+        })
+        return seatInfos
+    }
+
+    const changeSeatState = (seat:Seats) => {
+        const newSeats = cloneDeep(seat)
+        const pickSeats = getSeats(parsePickSeats(billInfo.seats))
+        pickSeats.forEach(seat=>{
+            console.log(seat[0])
+            console.log(seat[1])
+            newSeats[seat[0]][parseInt(seat[1])-1] = 3
+        })
+        return newSeats
+    }
+    console.log(changeSeatState(seats))
     const billParams:putBillParams = {
         sessionSeats:JSON.stringify(seats),
         sysBill:{
             billDate:billInfo.billDate,
             billId:billInfo.billId,
-            billState:billInfo.billState,
+            billState:true,
             sessionId:billInfo.sessionId,
             seats:billInfo.seats
         },
@@ -136,6 +158,11 @@ const BillPay = (props:BillPayProps) => {
         sysUser:billInfo.sysUser
     }
     const handleClick = () => {
+        setSeats((seats:Seats)=>{
+            console.log(changeSeatState(seats))
+            return changeSeatState(seats)
+        })
+        console.log('click',seats)
         PutBillInfo(billParams)
         setPay(true)
         setResult("success")

@@ -3,6 +3,7 @@ import React from 'react'
 import { useNavigate } from "react-router"
 import { useMovie } from "../../context/MovieProvider"
 import { Session } from "../../types"
+import { beginTime, endTime, priceS } from "./style.css"
 interface CinemaListProps {
     sourceData:Array<Session>
 }
@@ -24,10 +25,9 @@ const CinemaDetailList = (props:CinemaListProps) => {
             render:(runtime:any)=>{
                 return (
                     <div>
-                        <div>{runtime.beginTime}</div>
+                        <div className={beginTime}>{runtime.beginTime}</div>
                         <div>
-                            <span>{runtime.endTime}</span>
-                            <span>散场</span>
+                            <span className={endTime}>{runtime.endTime} 散场</span>
                         </div>
                     </div>
                 )
@@ -61,7 +61,7 @@ const CinemaDetailList = (props:CinemaListProps) => {
             key:"sessionPrice",
             render:(price:any)=>{
                 return (
-                    <div>
+                    <div className={priceS}>
                         {price}
                     </div>
                 )

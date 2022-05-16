@@ -9,7 +9,7 @@ import { parseImg } from '../../utils/parse'
 import { imgBG } from '../Actors/style.css'
 import CinemaDetailList from './CinemaList'
 import { fetchCinemaDetail, fetchSpecCinemaDetail } from './net'
-import { baseColor, listContainer, movieItem, movieItemActive, movieList, moviePoster, sectionContainer, sessionDate, sessionDateActive, sessionTitle } from './style.css'
+import { baseColor, detailTitle, itemContainer, itemContent, listContainer, movieItem, movieItemActive, movieList, movieName, moviePoster, movieScore, sectionContainer, sessionDate, sessionDateActive, sessionTitle } from './style.css'
 
 const CinemaDetail = () => {
     const params:any = useParams()
@@ -54,33 +54,33 @@ const CinemaDetail = () => {
     }
 
     const filterMovie = (movieId:number,movieList:MovieInfo[]) => {
-        return movieList.filter(movie=>{
+        return movieList?.filter(movie=>{
             return movie.movieId === movieId
         })[0]
     }
 
     const formatList = (name:string[]) => {
-        const str = name.slice(0,3).reduce((pre,cur)=>{
+        const str = name?.slice(0,3)?.reduce((pre,cur)=>{
             return pre + cur +"/"
         },'')
-        return str.slice(0,str.length-1)
+        return str?.slice(0,str.length-1)
     }
-    const {movieNameCn,movieScore,majorActorNameList,movieCategoryList,movieLength} = filterMovie(currentMovie,specDetail?.cinema?.sysMovieList)
+    const specMovie = filterMovie(currentMovie,specDetail?.cinema?.sysMovieList)
     return (
         <div>
             <DetailHeader
                 width={300}
-                src={parseImg(cinema.cinemaPicture)}
+                src={parseImg(cinema?.cinemaPicture)}
             >
                 <h1
                     className={baseColor}
                 >
-                    {cinema.cinemaName}
+                    {cinema?.cinemaName}
                 </h1>
                 <div
                     className={baseColor}
                 >
-                    {cinema.cinemaAddress}
+                    {cinema?.cinemaAddress}
                 </div>
                 {/* <div
                     className={baseColor}
@@ -122,23 +122,23 @@ const CinemaDetail = () => {
                 </div>
                 <div>
                     <div>
-                        <span>{movieNameCn}</span>
-                        <span>{movieScore}分</span>
+                        <span className={movieName}>{specMovie?.movieNameCn}</span>
+                        <span className={movieScore}>{specMovie?.movieScore}分</span>
                     </div>
                     <div>
-                        <div>
-                            <span>时长：</span>
-                            <span>{movieLength}</span>
+                        <div className={itemContainer}>
+                            <span className={detailTitle}>时长：</span>
+                            <span className={itemContent}>{specMovie?.movieLength}分</span>
                         </div>
-                        <div>
-                            <span>类型：</span>
-                            <span>{movieCategoryList.slice(0,3).reduce((pre,cur)=>{
+                        <div className={itemContainer}>
+                            <span className={detailTitle}>类型：</span>
+                            <span className={itemContent}>{specMovie?.movieCategoryList.slice(0,3).reduce((pre,cur)=>{
                                 return pre  + cur.movieCategoryName + '/'
                             },"")}</span>
                         </div>
-                        <div>
-                            <span>主演：</span>
-                            <span>{formatList(majorActorNameList)}</span>
+                        <div className={itemContainer}>
+                            <span className={detailTitle}>主演：</span>
+                            <span className={itemContent}>{formatList(specMovie?.majorActorNameList)}</span>
                         </div>
                     </div>
                 </div>

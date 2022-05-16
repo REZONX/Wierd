@@ -2,6 +2,7 @@ import React from 'react'
 import { Key } from '../components/tabs/types'
 import { Seats } from '../types'
 
+type seatsCallback = (seats:Seats)=>Seats
 export interface IMovieContext {
     currentMovie:Key
     currentCinema:Key
@@ -12,6 +13,6 @@ export interface IMovieContext {
     show:Key,
     setShow:(show:Key) => void
     seats:Seats
-    setSeats:(seats:Seats)=>void
+    setSeats:(seats:Seats | seatsCallback )=>void
 }
 export const MovieContext = React.createContext<IMovieContext | null>(null)
